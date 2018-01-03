@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <mvc:interceptors>
+        <!--拦截器配置-->
+        <mvc:interceptor>
+            <!--拦截所有地址-->
+            <mvc:mapping path="/**"/>
+            <!--排除静态资源-->
+            <mvc:exclude-mapping path="/static/*"/>
+            <!--排除登录相关-->
+            <mvc:exclude-mapping path="/login/*"/>
+            <!--排除注册相关-->
+            <mvc:exclude-mapping path="/register/*"/>
+            <!--排除管理员用户相关-->
+            <mvc:exclude-mapping path="/manage/login/*"/>
+            <bean class="com.day_28.station.commons.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+
+
+
+</beans>

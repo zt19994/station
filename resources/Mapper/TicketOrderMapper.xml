@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.day_28.station.dao.ITicketOrderDao">
+    <insert id="addTicketOrder" parameterType="TicketOrder">
+        INSERT INTO ticket_order (ticket_id, user_id, num, order_num) VALUES
+        (#{ticketId}, #{userId}, #{num}, #{orderNum})
+    </insert>
+
+    <select id="queryAll" resultType="TicketOrder">
+        select id, ticket_id ticketId, user_id userId, num, order_num orderNum from ticket_order;
+    </select>
+</mapper>
