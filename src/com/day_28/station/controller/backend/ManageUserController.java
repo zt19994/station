@@ -2,6 +2,7 @@ package com.day_28.station.controller.backend;
 
 import com.day_28.station.entity.Result;
 import com.day_28.station.entity.User;
+import com.day_28.station.pageEntity.PageInfo;
 import com.day_28.station.queryEntity.UserQueryObj;
 import com.day_28.station.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,18 @@ public class ManageUserController {
     public List<User> query(UserQueryObj userQueryObj){
         List<User> users = userService.queryByInfo(userQueryObj);
         return users;
+    }
+
+    /**
+     * 条件查询，并且加上分页
+     * @param userQueryObj
+     * @return
+     */
+    @RequestMapping("query2")
+    @ResponseBody
+    public PageInfo<User> query2(UserQueryObj userQueryObj){
+        PageInfo<User> pageInfo = userService.getPageInfo(userQueryObj);
+        return pageInfo;
     }
 
 

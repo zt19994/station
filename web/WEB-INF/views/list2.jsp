@@ -179,7 +179,7 @@
             '<td>操作</td>'+
             '</tr>';
 
-            var ticketList = data.ticketList;
+            var ticketList = data.list;
             var currentPage = data.currentPage;
             var pageSize = data.pageSize;
             var count = data.count;

@@ -56,11 +56,11 @@ public class TicketServiceImpl implements ITicketService {
     }
 
     @Override
-    public PageInfo getPageInfo(TicketQueryObj ticketQueryObj) {
-        PageInfo pageInfo = new PageInfo();
+    public PageInfo<Ticket> getPageInfo(TicketQueryObj ticketQueryObj) {
+        PageInfo<Ticket> pageInfo = new PageInfo<>();
         //封装页面对象 1.车票列表
         List<Ticket> tickets = iTicketDao.queryByInfo(ticketQueryObj);
-        pageInfo.setTicketList(tickets);
+        pageInfo.setList(tickets);
         //车票总条数
         int count = iTicketDao.count(ticketQueryObj);
         pageInfo.setCount(count);

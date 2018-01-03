@@ -49,4 +49,11 @@ public interface IUserDao {
      * @return
      */
     List<User> queryByInfo(UserQueryObj userQueryObj);
+
+    /**
+     * 条件查询总条数
+     * @param userQueryObj
+     * @return
+     */
+    int count(UserQueryObj userQueryObj);
 }

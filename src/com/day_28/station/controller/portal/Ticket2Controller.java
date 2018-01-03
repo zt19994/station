@@ -68,8 +68,8 @@ public class Ticket2Controller {
      */
     @RequestMapping("query2")
     @ResponseBody
-    public PageInfo query2(TicketQueryObj ticketQueryObj){
-        PageInfo pageInfo = ticketService.getPageInfo(ticketQueryObj);
+    public PageInfo<Ticket> query2(TicketQueryObj ticketQueryObj){
+        PageInfo<Ticket> pageInfo = ticketService.getPageInfo(ticketQueryObj);
         return pageInfo;
     }
 

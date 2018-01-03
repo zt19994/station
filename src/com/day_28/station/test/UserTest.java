@@ -65,4 +65,15 @@ public class UserTest {
             System.out.println(user);
         }
     }
+
+    /**
+    * 测试条件查询总条数
+    */
+    @Test
+    public void testCount(){
+        UserQueryObj userQueryObj = new UserQueryObj();
+        userQueryObj.setUserName("用户");
+        int count = userDao.count(userQueryObj);
+        System.out.println(count);
+    }
 }

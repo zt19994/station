@@ -7,9 +7,9 @@ import java.util.List;
 /**
  * 页面显示信息，用于分页
  */
-public class PageInfo {
+public class PageInfo<T> {
     //ticket列表
-    private List<Ticket> ticketList;
+    private List<T> list;
     //当前页
     private Integer currentPage;
     //每页条数
@@ -19,12 +19,12 @@ public class PageInfo {
     //总页数
     private Integer totalPage;
 
-    public List<Ticket> getTicketList() {
-        return ticketList;
+    public List<T> getList() {
+        return list;
     }
 
-    public void setTicketList(List<Ticket> ticketList) {
-        this.ticketList = ticketList;
+    public void setList(List<T> list) {
+        this.list = list;
     }
 
     public Integer getCurrentPage() {
@@ -59,14 +59,5 @@ public class PageInfo {
         this.totalPage = totalPage;
     }
 
-    @Override
-    public String toString() {
-        return "PageInfo{" +
-                "ticketList=" + ticketList +
-                ", currentPage=" + currentPage +
-                ", pageSize=" + pageSize +
-                ", count=" + count +
-                ", totalPage=" + totalPage +
-                '}';
-    }
+
 }

@@ -2,6 +2,7 @@ package com.day_28.station.service.impl;
 
 import com.day_28.station.dao.IUserDao;
 import com.day_28.station.entity.User;
+import com.day_28.station.pageEntity.PageInfo;
 import com.day_28.station.queryEntity.UserQueryObj;
 import com.day_28.station.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +50,6 @@ public class UserServiceImpl implements IUserService{
         return users;
     }
 
-    @Override
-    public List<User> queryByInfo(UserQueryObj userQueryObj) {
-        List<User> users = userDao.queryByInfo(userQueryObj);
-        return users;
-    }
 
     @Override
     public Boolean checkLogin(User user) {
@@ -84,5 +80,32 @@ public class UserServiceImpl implements IUserService{
 
         userDao.addUser(user);
         return true;
+    }
+
+    @Override
+    public List<User> queryByInfo(UserQueryObj userQueryObj) {
+        List<User> users = userDao.queryByInfo(userQueryObj);
+        return users;
+    }
+
+    @Override
+    public PageInfo<User> getPageInfo(UserQueryObj userQueryObj) {
+        //1.创建分页对象
+        PageInfo<User> pageInfo = new PageInfo<>();
+        //2.封装分页对象
+        //用户列表
+        List<User> users = userDao.queryByInfo(userQueryObj);
+        pageInfo.setList(users);
+        //当前页
+        pageInfo.setCurrentPage(userQueryObj.getCurrentPage());
+        //每页条数
+        pageInfo.setPageSize(userQueryObj.getPageSize());
+        //查询总条数
+        int count = userDao.count(userQueryObj);
+        pageInfo.setCount(count);
+        //总页数，通过计算得到
+        int totalPage = (count - 1)/userQueryObj.getPageSize() + 1;
+        pageInfo.setTotalPage(totalPage);
+        return pageInfo;
     }
 }

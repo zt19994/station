@@ -44,10 +44,10 @@ public interface ITicketService {
     List<Ticket> queryByInfo(TicketQueryObj ticketQueryObj);
 
     /**
-     * 通过条件查询
+     * 通过条件查询,返回车票页面对象
      * @return
      */
-    PageInfo getPageInfo(TicketQueryObj ticketQueryObj);
+    PageInfo<Ticket> getPageInfo(TicketQueryObj ticketQueryObj);
 
     /**
      * 判断购票是否成功

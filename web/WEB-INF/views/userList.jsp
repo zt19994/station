@@ -64,29 +64,63 @@
 <script type="text/javascript">
     //首页
     function firstPage() {
-        alert("firstPage");
+        //alert("firstPage");
+        loadData(1);
     }
 
     //上一页
     function prePage() {
-        alert("prePage");
+        //alert("prePage");
+        var currentPage = $("#currentPage").html();
+        var prePage = currentPage - 1;
+        if (currentPage<=1){
+            prePage = 1;
+            return prePage;
+        }
+        loadData(prePage);
     }
 
     //下一页
     function nextPage() {
-        alert("nextPage");
+        //alert("nextPage");
+        var currentPage = $("#currentPage").html();
+        var totalPage = $("#totalPage").html();
+        if (currentPage>=totalPage){
+            currentPage = totalPage;
+            return currentPage;
+        }
+        var nextPage = parseInt(currentPage) + 1;
+        loadData(nextPage);
     }
 
     //末页
     function lastPage() {
-        alert("lastPage");
+        var lastPage = $("#totalPage").html();
+        //alert("lastPage"+lastPage);
+        loadData(lastPage);
+    }
+
+    function jumpPage() {
+        var totalPage = $("#totalPage").html();
+        var currentPage = $("#jumpPage").val();
+        //alert(currentPage);
+        if (currentPage<=1){
+            currentPage = 1;
+            loadData(currentPage);
+        }else if (currentPage>=totalPage){
+            currentPage=totalPage;
+            loadData(currentPage);
+        }else {
+            loadData(currentPage);
+        }
+
     }
    /* function addUser() {
         //alert("addUser");
         location.href='http://localhost:8080/register/toRegister';
     }*/
 
-    function loadData(){
+    function loadData(_currentPage){
         /*alert("loadData");*/
         //获取查询参数
         var userName = $("#userName").val();
@@ -95,9 +129,10 @@
         var params = {
             userName:userName,
             identityCard:identityCard,
-            phone:phone
+            phone:phone,
+            currentPage:_currentPage
         };
-        var url = 'http://localhost:8080/manage/login/query';
+        var url = 'http://localhost:8080/manage/login/query2';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -111,6 +146,11 @@
                 /*   /!*测试对象数量*!/
                    var num = data.length;
                    alert(num);*/
+                var userList = data.list;
+                var currentPage = data.currentPage;
+                var pageSize = data.pageSize;
+                var count = data.count;
+                var totalPage = data.totalPage;
 
                 var html =
                     '<tr>'+
@@ -123,8 +163,8 @@
                     '<td>操作</td>'+
                     '</tr>';
 
-                for (var i=0; i<data.length; i++){
-                    var user = data[i];
+                for (var i=0; i<userList.length; i++){
+                    var user = userList[i];
                     var userId = user.id;
                     var userName = user.userName;
                     var password = user.password;
@@ -147,6 +187,11 @@
                 }
 
                 $("#userList").html(html);
+                //注入分页对象的值
+                $("#currentPage").html(currentPage);
+                $("#pageSize").html(pageSize);
+                $("#count").html(count);
+                $("#totalPage").html(totalPage);
             },
             error: function (data) {
                 /*alert("失败啦");*/
@@ -189,6 +234,6 @@
         }
     }
 
-    loadData();
+    loadData(1);
 </script>
 </html>
