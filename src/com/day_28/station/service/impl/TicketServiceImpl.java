@@ -71,7 +71,7 @@ public class TicketServiceImpl implements ITicketService {
         Integer currentPage = ticketQueryObj.getCurrentPage();
         pageInfo.setCurrentPage(currentPage);
         //总页数，通过计算得到
-        int totalPage = ((count-1)/pageSize) + 1;
+        int totalPage = ((count - 1) / pageSize) + 1;
         pageInfo.setTotalPage(totalPage);
         return pageInfo;
     }
@@ -83,7 +83,7 @@ public class TicketServiceImpl implements ITicketService {
         Integer ticketNum = ticket.getTicketNum();
         //2.修改余票数量
         //a.判断余票是否小于0，小于则返回false
-        if (ticketNum <=0) {
+        if (ticketNum <= 0) {
             return false;
         }
         //b.余票减少一张

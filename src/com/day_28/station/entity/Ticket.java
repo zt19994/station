@@ -1,5 +1,7 @@
 package com.day_28.station.entity;
 
+import com.day_28.station.map.DicMap;
+
 public class Ticket {
     private int id;
     private String startStation;
@@ -7,6 +9,8 @@ public class Ticket {
     private String departureTime;
     private Double price;
     private Integer ticketNum;
+    private String type;
+    private String typeName;
     private Integer routeId;
 
     public int getId() {
@@ -57,6 +61,27 @@ public class Ticket {
         this.ticketNum = ticketNum;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getTypeName() {
+        //从数据字典中获取类型
+        if (typeName==null){
+            typeName = DicMap.getFieldDetail("ticket", "type", type);
+        }
+
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+        this.typeName = typeName;
+    }
+
     public Integer getRouteId() {
         return routeId;
     }
@@ -74,6 +99,7 @@ public class Ticket {
                 ", departureTime='" + departureTime + '\'' +
                 ", price=" + price +
                 ", ticketNum=" + ticketNum +
+                ", type=" + type +
                 ", routeId=" + routeId +
                 '}';
     }

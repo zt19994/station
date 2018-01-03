@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements IUserService{
+public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserDao userDao;
 
@@ -73,7 +73,7 @@ public class UserServiceImpl implements IUserService{
     public Boolean checkRegister(User user) {
         //通过用户名查询，是否存在用户，存在则已经注册过了
         User user1 = userDao.queryByName(user);
-        if (user1!=null){
+        if (user1 != null) {
             return false;
         }
         //不存在，则注册
@@ -104,7 +104,7 @@ public class UserServiceImpl implements IUserService{
         int count = userDao.count(userQueryObj);
         pageInfo.setCount(count);
         //总页数，通过计算得到
-        int totalPage = (count - 1)/userQueryObj.getPageSize() + 1;
+        int totalPage = (count - 1) / userQueryObj.getPageSize() + 1;
         pageInfo.setTotalPage(totalPage);
         return pageInfo;
     }

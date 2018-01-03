@@ -43,7 +43,7 @@
 <script type="text/javascript">
     //首页
     function firstPage() {
-        loadData(1)
+        loadData(1);
     }
     //上一页
     function prePage() {
@@ -68,7 +68,7 @@
         }
         var _currentPage = parseInt(currentPage) + 1;
         //alert(_currentPage);
-        loadData(_currentPage)
+        loadData(_currentPage);
     }
     //末页
     function lastPage() {

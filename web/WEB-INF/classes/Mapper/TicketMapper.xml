@@ -18,8 +18,8 @@
 
     <insert id="addTicket"  parameterType="Ticket" >
         INSERT INTO ticket
-        (start_station, stop_station, departure_time, price,ticket_num ,route_id)
-        VALUES (#{startStation}, #{stopStation}, #{departureTime}, #{price}, #{ticketNum}, #{routeId})
+        (start_station, stop_station, departure_time, price,ticket_num, type, route_id)
+        VALUES (#{startStation}, #{stopStation}, #{departureTime}, #{price}, #{ticketNum}, #{type}, #{routeId})
     </insert>
 
     <delete id="deleteTicket" parameterType="Ticket" >
@@ -28,11 +28,11 @@
 
     <update id="updateTicket" parameterType="Ticket">
         UPDATE ticket SET start_station=#{startStation}, stop_station=#{stopStation}, departure_time=#{departureTime},
-         price=#{price}, ticket_num=#{ticketNum}, route_id=#{routeId} WHERE id=#{id}
+         price=#{price}, ticket_num=#{ticketNum}, type=#{type}, route_id=#{routeId} WHERE id=#{id}
     </update>
 
     <select id="queryAllTicket" resultType="Ticket" resultMap="ticketMap">
-        SELECT id, start_station, stop_station, departure_time, price, ticket_num,route_id FROM ticket
+        SELECT id, start_station, stop_station, departure_time, price, ticket_num, type, route_id FROM ticket
     </select>
 
     <select id="count" parameterType="com.day_28.station.queryEntity.TicketQueryObj" resultType="int">
@@ -48,7 +48,7 @@
     </select>
 
     <select id="queryByInfo" resultType="Ticket" parameterType="com.day_28.station.queryEntity.TicketQueryObj" resultMap="ticketMap">
-        SELECT id, start_station, stop_station, departure_time, price, ticket_num,route_id FROM ticket
+        SELECT id, start_station, stop_station, departure_time, price, ticket_num, type, route_id FROM ticket
         <where>
             <if test="startStation!=null and startStation!=''">
                 AND start_station LIKE CONCAT('%',#{startStation},'%')
@@ -64,7 +64,7 @@
     </select>
 
     <select id="queryById" resultType="Ticket" resultMap="ticketMap">
-        SELECT id, start_station, stop_station, departure_time, price, ticket_num,route_id FROM ticket
+        SELECT id, start_station, stop_station, departure_time, price, ticket_num,type, route_id FROM ticket
         WHERE id=#{id}
     </select>
 </mapper>

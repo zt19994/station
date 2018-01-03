@@ -12,11 +12,11 @@
     <%--类型，jquery地址，加/线--%>
     <script type="text/javascript" src="/static/jquery-2.1.3.min.js">
     </script>
-<%--
-测试jQuery是否加载成功
-    <script type="text/javascript">
-        alert($);
-    </script>--%>
+    <%--
+    测试jQuery是否加载成功
+        <script type="text/javascript">
+            alert($);
+        </script>--%>
 
 </head>
 <body>
@@ -44,20 +44,9 @@
             <td>发车时间</td>
             <td>票价</td>
             <td>余票</td>
+            <td>类型</td>
             <td>里程(未关联)</td>
             <td>操作</td>
-        </tr>
-        <tr>
-            <td>${ticket.id}</td>
-            <td>${ticket.startStation}</td>
-            <td>${ticket.stopStation}</td>
-            <td>${ticket.departureTime}</td>
-            <td>${ticket.price}</td>
-            <td>${ticket.ticketNum}</td>
-            <td>${ticket.routeId}</td>
-            <td>
-                <button>购买</button>
-            </td>
         </tr>
     </table>
     <br/>
@@ -65,7 +54,8 @@
     <button onclick="prePage()">上一页</button>
     <button onclick="nextPage()">下一页</button>
     <button onclick="lastPage()">末页</button>
-    跳转到:<input id="jumpPage" type="text" value="1" > <button onclick="jumpPage()">跳转</button>
+    跳转到:<input id="jumpPage" type="text" value="1">
+    <button onclick="jumpPage()">跳转</button>
     第 <span id="currentPage"></span>/<span id="totalPage"></span> 页，
     分页条数 <span id="pageSize"></span> 条，
     总共 <span id="count"></span> 条
@@ -77,45 +67,47 @@
     //查看订单列表
     function ticketOrder() {
         //alert("ticketOrder");
-        location.href="http://localhost:8080/order/order";
+        location.href = "http://localhost:8080/order/order";
     }
 
     //注销
     function logout() {
-        location.href="http://localhost:8080/login/logout";
+        location.href = "http://localhost:8080/login/logout";
     }
 
 
     //登录
     function login() {
         //alert("login");
-        location.href="http://localhost:8080/login/toLogin";
+        location.href = "http://localhost:8080/login/toLogin";
     }
 
     //注册
     function register() {
         //alert("logon");
-        location.href="http://localhost:8080/register/toRegister";
+        location.href = "http://localhost:8080/register/toRegister";
     }
 
     //首页
     function firstPage() {
         //alert("firstPage");
         var currentPage = 1;
-        loadData(currentPage)
+        loadData(currentPage);
     }
+
     //上一页
     function prePage() {
         //alert("prePage");
         var currentPage = $("#currentPage").html();
         var _currentPage = currentPage - 1;
-        if (currentPage<=1){
+        if (currentPage <= 1) {
             _currentPage = 1;
             return _currentPage;
         }
         //alert(_currentPage);
-        loadData(_currentPage)
+        loadData(_currentPage);
     }
+
     //下一页
     function nextPage() {
         //alert("nextPage");
@@ -131,16 +123,13 @@
     }
     //末页
     function lastPage() {
-        //alert("lastPage");
         var currentPage = $("#totalPage").html();
-        loadData(currentPage)
+        loadData(currentPage);
     }
     //跳转页
     function jumpPage() {
-        //alert("jumpPage");
         var totalPage = $("#totalPage").html();
         var currentPage = $("#jumpPage").val();
-        //alert(currentPage);
         if (currentPage<=1){
             currentPage = 1;
             loadData(currentPage);
@@ -153,16 +142,15 @@
     }
 
 
-
     function loadData(_currentPage) {
         /*把查询数据合成了*/
         var startStation = $("#startStation").val();
         var stopStation = $("#stopStation").val();
 
         var params = {
-            startStation:startStation,
-            stopStation:stopStation,
-            currentPage:_currentPage
+            startStation: startStation,
+            stopStation: stopStation,
+            currentPage: _currentPage
         };
         var url = 'http://localhost:8080/ticket2/query2';
         jQuery.ajax({
@@ -174,53 +162,58 @@
 
             success: function (data) {
 
-            var html =
-            '<tr>'+
-            '<td>编号</td>'+
-            '<td>起始站</td>'+
-            '<td>终点站</td>'+
-            '<td>发车时间</td>'+
-            '<td>票价</td>'+
-            '<td>余票</td>'+
-            '<td>里程(未关联)</td>'+
-            '<td>操作</td>'+
-            '</tr>';
+                var html =
+                    '<tr>' +
+                    '<td>编号</td>' +
+                    '<td>起始站</td>' +
+                    '<td>终点站</td>' +
+                    '<td>发车时间</td>' +
+                    '<td>票价</td>' +
+                    '<td>余票</td>' +
+                    '<td>类型</td>' +
+                    '<td>里程(未关联)</td>' +
+                    '<td>操作</td>' +
+                    '</tr>';
 
-            var ticketList = data.list;
-            var currentPage = data.currentPage;
-            var pageSize = data.pageSize;
-            var count = data.count;
-            var totalPage = data.totalPage;
+                var ticketList = data.list;
+                var currentPage = data.currentPage;
+                var pageSize = data.pageSize;
+                var count = data.count;
+                var totalPage = data.totalPage;
 
-            for (var i=0; i<ticketList.length; i++){
-                var ticket = ticketList[i];
-                var id = ticket.id;
-                var startStation = ticket.startStation;
-                var stopStation = ticket.stopStation;
-                var departureTime = ticket.departureTime;
-                var price = ticket.price;
-                var ticketNum = ticket.ticketNum;
-                var routeId = ticket.routeId;
-                html = html +
-               '<tr>'+
-               '<td>'+ id +'</td>'+
-               '<td>'+ startStation +'</td>'+
-               '<td>'+ stopStation + '</td>'+
-               '<td>'+ departureTime + '</td>'+
-               '<td>'+ price + '</td>'+
-                '<td>'+ ticketNum + '</td>'+
-               '<td>'+ routeId +'</td>'+
-               '<td align="center">'+
-                '<button onclick="buyTicket('+ id +')">购买</button>'+
-                '</td>'+
-                '</tr>';
-            }
-            $("#ticketList").html(html);
-            //注入分页对象的值
-            $("#currentPage").html(currentPage);
-            $("#pageSize").html(pageSize);
-            $("#count").html(count);
-            $("#totalPage").html(totalPage);
+                for (var i = 0; i < ticketList.length; i++) {
+                    var ticket = ticketList[i];
+                    var id = ticket.id;
+                    var startStation = ticket.startStation;
+                    var stopStation = ticket.stopStation;
+                    var departureTime = ticket.departureTime;
+                    var price = ticket.price;
+                    var ticketNum = ticket.ticketNum;
+                    var typeName = ticket.typeName;
+                    var routeId = ticket.routeId;
+
+
+                    html = html +
+                        '<tr>' +
+                        '<td>' + id + '</td>' +
+                        '<td>' + startStation + '</td>' +
+                        '<td>' + stopStation + '</td>' +
+                        '<td>' + departureTime + '</td>' +
+                        '<td>' + price + '</td>' +
+                        '<td>' + ticketNum + '</td>' +
+                        '<td>' + typeName + '</td>' +
+                        '<td>' + routeId + '</td>' +
+                        '<td align="center">' +
+                        '<button onclick="buyTicket(' + id + ')">购买</button>' +
+                        '</td>' +
+                        '</tr>';
+                }
+                $("#ticketList").html(html);
+                //注入分页对象的值
+                $("#currentPage").html(currentPage);
+                $("#pageSize").html(pageSize);
+                $("#count").html(count);
+                $("#totalPage").html(totalPage);
             },
             error: function (data) {
                 /*alert("失败啦");*/
@@ -232,7 +225,7 @@
         //alert("buyTicket");
 
         var params = {
-            id:id
+            id: id
         };
         var url = 'http://localhost:8080/ticket2/buyTicket';
         jQuery.ajax({
@@ -248,11 +241,11 @@
                 //获取数据
                 var code = data.code;
                 var msg = data.msg;
-                if (code=="0000"){
+                if (code == "0000") {
                     //alert(msg);
-                    location.href="http://localhost:8080/ticket2/page";
+                    location.href = "http://localhost:8080/ticket2/page";
                     return false
-                }else {
+                } else {
                     //alert(msg);
                 }
             },

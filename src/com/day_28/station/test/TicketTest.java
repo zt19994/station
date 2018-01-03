@@ -77,7 +77,7 @@ public class TicketTest {
     */
     @Test
     public void testQueryById(){
-        Ticket ticket = iTicketDao.queryById(3);
+        Ticket ticket = iTicketDao.queryById(8);
         System.out.println(ticket);
     }
 

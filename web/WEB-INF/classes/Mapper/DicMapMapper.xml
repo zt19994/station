@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.day_28.station.dao.IDicMapDao">
+    <select id="getList" resultType="com.day_28.station.entity.Dic">
+         SELECT d.id, d.table_name tableName, d.field_name fieldName, d.field_value fieldValue,
+       d.field_describe fieldDescribe, d.`describe` FROM dic AS d
+    </select>
+
+    <select id="getDic" resultType="com.day_28.station.entity.Dic">
+        SELECT d.id, d.table_name tableName, d.field_name fieldName, d.field_value fieldValue,
+        d.field_describe fieldDescribe, d.`describe` FROM dic AS d
+        <where>
+            <if test="tableName!=null and tableName!=''">
+                AND d.table_name=#{tableName}
+            </if>
+            <if test="fieldName!=null and fieldName!=''">
+                AND d.field_name=#{fieldName}
+            </if>
+            <if test="fieldValue!=null and fieldValue!=''">
+                AND d.field_value=#{fieldValue}
+            </if>
+        </where>
+
+    </select>
+</mapper>
