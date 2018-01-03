@@ -25,7 +25,12 @@
 </div>
 <br/>
 <div align="center">
-    <table id="userList" border="1" cellspacing="1" width="600">
+    用户名：<input id="userName" type="text" value="">
+    身份证号：<input id="identityCard" type="text" value="">
+    电话号码：<input id="phone" type="text" value="">
+    <button onclick="loadData()">查询</button>
+    <br/>
+    <table id="userList" border="1" cellspacing="1" width="800">
         <tr>
             <td>编号</td>
             <td>用户名</td>
@@ -44,10 +49,38 @@
             <td></td>
         </tr>
     </table>
+    <br/>
+    <button onclick="firstPage()">首页</button>
+    <button onclick="prePage()">上一页</button>
+    <button onclick="nextPage()">下一页</button>
+    <button onclick="lastPage()">末页</button>
+    跳转到:<input id="jumpPage" type="text" value="1" > <button onclick="jumpPage()">跳转</button>
+    第 <span id="currentPage"></span>/<span id="totalPage"></span> 页，
+    分页条数 <span id="pageSize"></span> 条，
+    总共 <span id="count"></span> 条
 </div>
 </body>
 
 <script type="text/javascript">
+    //首页
+    function firstPage() {
+        alert("firstPage");
+    }
+
+    //上一页
+    function prePage() {
+        alert("prePage");
+    }
+
+    //下一页
+    function nextPage() {
+        alert("nextPage");
+    }
+
+    //末页
+    function lastPage() {
+        alert("lastPage");
+    }
    /* function addUser() {
         //alert("addUser");
         location.href='http://localhost:8080/register/toRegister';
@@ -55,10 +88,16 @@
 
     function loadData(){
         /*alert("loadData");*/
+        //获取查询参数
+        var userName = $("#userName").val();
+        var identityCard = $("#identityCard").val();
+        var phone = $("#phone").val();
         var params = {
-
+            userName:userName,
+            identityCard:identityCard,
+            phone:phone
         };
-        var url = 'http://localhost:8080/manage/login/userData';
+        var url = 'http://localhost:8080/manage/login/query';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -106,15 +145,6 @@
                         '<button onclick="updateUser('+userId+')">修改</button>' +
                         '</td>';
                 }
-                html = html +'<tr>'+
-                    '<td colspan="7">'+
-                    '<a href="#">首页</a>&nbsp;'+
-                    '<a href="#">上一页</a>&nbsp;'+
-                    '<a href="#">下一页</a>&nbsp;'+
-                    '<a href="#">末页</a>&nbsp;'+
-                    '<span>第 1/2 页，每页条数 5 条，共 7 条</span>'+
-                    '</td>'+
-                    '</tr>';
 
                 $("#userList").html(html);
             },

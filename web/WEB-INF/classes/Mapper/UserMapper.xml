@@ -23,6 +23,21 @@
         SELECT id, user_name userName, password, phone, identity_card identityCard, state FROM user
     </select>
 
+    <select id="queryByInfo" resultType="User">
+        SELECT id, user_name userName, password, phone, identity_card identityCard, state FROM user
+        <where>
+            <if test="userName!=null and userName!=''">
+                AND user_name LIKE CONCAT('%',#{userName},'%' )
+            </if>
+            <if test="identityCard!=null and identityCard!=''">
+                AND identity_card LIKE CONCAT('%',#{identityCard},'%' )
+            </if>
+            <if test="phone!=null and phone!=''">
+                AND phone LIKE CONCAT('%',#{phone},'%' )
+            </if>
+        </where>
+    </select>
+
     <select id="queryByName" resultType="User">
         SELECT id, user_name userName, password, phone, identity_card identityCard, state FROM user WHERE user_name = #{userName}
     </select>

@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/register/")
 public class UserRegisterController {
     @Autowired
-    private IUserService iUserService;
+    private IUserService userService;
 
     /**
      * 跳转到注册页面
@@ -39,7 +39,7 @@ public class UserRegisterController {
         if (user.getUserName()!=null && !user.getUserName().trim().equals("") &&
                 user.getPassword()!=null && !user.getPassword().trim().equals("")){
             //然后检出注册是否重复
-            Boolean aBoolean = iUserService.checkRegister(user);
+            Boolean aBoolean = userService.checkRegister(user);
             //aBoolean位true，则注册成功
             if (aBoolean){
                 result.setCode("0000");

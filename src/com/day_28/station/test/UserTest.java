@@ -2,6 +2,7 @@ package com.day_28.station.test;
 
 import com.day_28.station.dao.IUserDao;
 import com.day_28.station.entity.User;
+import com.day_28.station.queryEntity.UserQueryObj;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import java.util.List;
 @ContextConfiguration("classpath:spring-config.xml")
 public class UserTest {
     @Autowired
-    private IUserDao iUserDao;
+    private IUserDao userDao;
 
     /**
     * 测试添加用户
@@ -27,7 +28,7 @@ public class UserTest {
         user.setPhone(55555);
         user.setIdentityCard(1663546);
         user.setState(0);
-        iUserDao.addUser(user);
+        userDao.addUser(user);
     }
 
     /**
@@ -35,7 +36,7 @@ public class UserTest {
     */
     @Test
     public void testQueryAllUser(){
-        List<User> users = iUserDao.queryAllUser();
+        List<User> users = userDao.queryAllUser();
         for (User user : users) {
             System.out.println(user);
         }
@@ -48,7 +49,20 @@ public class UserTest {
     public void testQueryByName(){
         User user = new User();
         user.setUserName("用户2");
-        User user1 = iUserDao.queryByName(user);
+        User user1 = userDao.queryByName(user);
         System.out.println(user1);
+    }
+
+    /**
+    * 测试条件查询
+    */
+    @Test
+    public void testQueryByInfo(){
+        UserQueryObj userQueryObj = new UserQueryObj();
+        userQueryObj.setUserName("用户");
+        List<User> users = userDao.queryByInfo(userQueryObj);
+        for (User user : users) {
+            System.out.println(user);
+        }
     }
 }

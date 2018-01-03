@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class TicketService implements ITicketService {
+public class TicketServiceImpl implements ITicketService {
     @Autowired
     private ITicketDao iTicketDao;
 

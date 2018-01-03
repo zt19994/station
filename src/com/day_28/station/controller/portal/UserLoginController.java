@@ -20,7 +20,7 @@ import java.util.UUID;
 @RequestMapping("/login/")
 public class UserLoginController {
     @Autowired
-    private IUserService iUserService;
+    private IUserService userService;
 
     /**
      * 跳转到登录页面，并保存到httpSession中
@@ -100,12 +100,12 @@ public class UserLoginController {
         httpSession.removeAttribute("LOGIN_TOKEN_IN_SESSION");
 
         //调用service方法检查的登录
-        Boolean aBoolean = iUserService.checkLogin(user);
+        Boolean aBoolean = userService.checkLogin(user);
         if(aBoolean){
             //登录成功,并且把用户信息存放session
             result.setCode("0000");
             //需要保存用户id
-            User user1 = iUserService.queryByName(user);
+            User user1 = userService.queryByName(user);
             httpSession.setAttribute("LOGIN_IN_SESSION", user1);
 
         }else {

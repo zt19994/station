@@ -14,13 +14,13 @@ import java.util.List;
 @RequestMapping("/ticket")
 public class TicketController {
     @Autowired
-    private ITicketService iTicketService;
+    private ITicketService ticketService;
 
     @RequestMapping("/list")
     public ModelAndView listTicket(){
         ModelAndView modelAndView = new ModelAndView();
 
-        List<Ticket> tickets = iTicketService.queryAllTicket();
+        List<Ticket> tickets = ticketService.queryAllTicket();
 
         modelAndView.addObject("tickets", tickets);
         //设置视图地址

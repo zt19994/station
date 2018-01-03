@@ -51,10 +51,10 @@
         SELECT id, start_station, stop_station, departure_time, price, ticket_num,route_id FROM ticket
         <where>
             <if test="startStation!=null and startStation!=''">
-                AND start_station LIKE #{startStation}
+                AND start_station LIKE CONCAT('%',#{startStation},'%')
             </if>
             <if test="stopStation!='' and stopStation!=null ">
-                AND stop_station LIKE #{stopStation}
+                AND stop_station LIKE CONCAT('%',#{stopStation},'%')
             </if>
         </where>
         <if test="pageSize!=null and startIndex!=null ">

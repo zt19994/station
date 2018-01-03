@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("/ticket2/")
 public class Ticket2Controller {
     @Autowired
-    private ITicketService iTicketService;
+    private ITicketService ticketService;
 
     /**
      * 请求页面
@@ -45,7 +45,7 @@ public class Ticket2Controller {
     @RequestMapping("data")
     @ResponseBody
     public List<Ticket> data(){
-        List<Ticket> tickets = iTicketService.queryAllTicket();
+        List<Ticket> tickets = ticketService.queryAllTicket();
         return tickets;
     }
 
@@ -57,7 +57,7 @@ public class Ticket2Controller {
     @RequestMapping("query")
     @ResponseBody
     public List<Ticket> query(TicketQueryObj ticketQueryObj){
-        List<Ticket> tickets = iTicketService.queryByInfo(ticketQueryObj);
+        List<Ticket> tickets = ticketService.queryByInfo(ticketQueryObj);
         return tickets;
     }
 
@@ -69,7 +69,7 @@ public class Ticket2Controller {
     @RequestMapping("query2")
     @ResponseBody
     public PageInfo query2(TicketQueryObj ticketQueryObj){
-        PageInfo pageInfo = iTicketService.getPageInfo(ticketQueryObj);
+        PageInfo pageInfo = ticketService.getPageInfo(ticketQueryObj);
         return pageInfo;
     }
 
@@ -82,7 +82,7 @@ public class Ticket2Controller {
         User loginInSession = (User)httpSession.getAttribute("LOGIN_IN_SESSION");
         Integer userId = loginInSession.getId();
         //调用业务方法，判断是否购票成功
-        Boolean aBoolean = iTicketService.buyTicket(userId, id);
+        Boolean aBoolean = ticketService.buyTicket(userId, id);
         if (aBoolean){
             //为true，购票成功
             result.setCode("0000");

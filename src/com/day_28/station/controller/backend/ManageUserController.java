@@ -2,6 +2,7 @@ package com.day_28.station.controller.backend;
 
 import com.day_28.station.entity.Result;
 import com.day_28.station.entity.User;
+import com.day_28.station.queryEntity.UserQueryObj;
 import com.day_28.station.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import java.util.List;
 @RequestMapping("/manage/login/")
 public class ManageUserController {
     @Autowired
-    private IUserService iUserService;
+    private IUserService userService;
 
     /**
      * 请求用户列表页面
@@ -38,7 +39,19 @@ public class ManageUserController {
     @RequestMapping("userData")
     @ResponseBody
     public List<User> userDate(){
-        List<User> users = iUserService.queryAllUser();
+        List<User> users = userService.queryAllUser();
+        return users;
+    }
+
+    /**
+     * 通过条件查询用户信息
+     * @param userQueryObj
+     * @return
+     */
+    @RequestMapping("query")
+    @ResponseBody
+    public List<User> query(UserQueryObj userQueryObj){
+        List<User> users = userService.queryByInfo(userQueryObj);
         return users;
     }
 
@@ -52,9 +65,9 @@ public class ManageUserController {
     @ResponseBody
     public List<User> deleteUser(Integer id){
         //删除用户
-        iUserService.deleteUser(id);
+        userService.deleteUser(id);
         //再查询用户
-        List<User> users = iUserService.queryAllUser();
+        List<User> users = userService.queryAllUser();
         return users;
     }
 
@@ -76,7 +89,7 @@ public class ManageUserController {
     public Result<User> getUpdateUserData(int id){
         Result<User> result = new Result<User>();
         //通过id查询用户信息
-        User user = iUserService.queryById(id);
+        User user = userService.queryById(id);
 
         result.setData(user);
         return result;
@@ -88,9 +101,9 @@ public class ManageUserController {
         Result<Object> result = new Result<>();
         //调用业务方法，更新
         if (user.getId()==null){
-            iUserService.addUser(user);
+            userService.addUser(user);
         }else {
-            iUserService.updateUser(user);
+            userService.updateUser(user);
         }
         return result;
     }
