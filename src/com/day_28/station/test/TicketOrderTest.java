@@ -1,7 +1,9 @@
 package com.day_28.station.test;
 
 import com.day_28.station.dao.ITicketOrderDao;
+import com.day_28.station.entity.OrderPage;
 import com.day_28.station.entity.TicketOrder;
+import com.day_28.station.queryEntity.OrderQueryObj;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ import java.util.UUID;
 @ContextConfiguration("classpath:spring-config.xml")
 public class TicketOrderTest {
     @Autowired
-    private ITicketOrderDao iTicketOrderDao;
+    private ITicketOrderDao ticketOrderDao;
 
     /**
     * 测试增加车票订单
@@ -29,7 +31,7 @@ public class TicketOrderTest {
         String orderNum = UUID.randomUUID().toString();
         ticketOrder.setOrderNum(orderNum);
         System.out.println(ticketOrder);
-        iTicketOrderDao.addTicketOrder(ticketOrder);
+        ticketOrderDao.addTicketOrder(ticketOrder);
     }
 
     /**
@@ -37,9 +39,44 @@ public class TicketOrderTest {
     */
     @Test
     public void testQueryAll(){
-        List<TicketOrder> ticketOrders = iTicketOrderDao.queryAll();
+        List<TicketOrder> ticketOrders = ticketOrderDao.queryAll();
         for (TicketOrder ticketOrder : ticketOrders) {
             System.out.println(ticketOrder);
         }
+    }
+
+    /**
+    * 测试查询订单模型信息
+    */
+    @Test
+    public void testQueryAllOrderPage(){
+        List<OrderPage> orderPages = ticketOrderDao.queryAllOrderPage();
+        for (OrderPage orderPage : orderPages) {
+            System.out.println(orderPage);
+        }
+    }
+
+    /**
+    * 测试条件查询
+    */
+    @Test
+    public void testQueryByInfo(){
+        OrderQueryObj orderQueryObj = new OrderQueryObj();
+        orderQueryObj.setStartStation("南京");
+        List<OrderPage> orderPages = ticketOrderDao.queryByInfo(orderQueryObj);
+        for (OrderPage orderPage : orderPages) {
+            System.out.println(orderPage);
+        }
+    }
+
+    /**
+    * 测试条件查询总条数
+    */
+    @Test
+    public void testCount(){
+        OrderQueryObj orderQueryObj = new OrderQueryObj();
+        orderQueryObj.setStartStation("南京");
+        int count = ticketOrderDao.count(orderQueryObj);
+        System.out.println(count);
     }
 }

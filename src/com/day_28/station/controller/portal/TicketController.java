@@ -11,12 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@RequestMapping("/ticket")
+@RequestMapping("/ticket/")
 public class TicketController {
     @Autowired
     private ITicketService ticketService;
 
-    @RequestMapping("/list")
+    @RequestMapping("list")
     public ModelAndView listTicket(){
         ModelAndView modelAndView = new ModelAndView();
 

@@ -27,6 +27,7 @@
     <button onclick="logout()">注销</button>
     <button onclick="login()">登录</button>
     <button onclick="register()">注册</button>
+    <button onclick="ticketOrder()">查看订单列表</button>
 </div>
 <br/>
 <div align="center">
@@ -73,6 +74,12 @@
 </body>
 
 <script type="text/javascript">
+    //查看订单列表
+    function ticketOrder() {
+        //alert("ticketOrder");
+        location.href="http://localhost:8080/order/order";
+    }
+
     //注销
     function logout() {
         location.href="http://localhost:8080/login/logout";

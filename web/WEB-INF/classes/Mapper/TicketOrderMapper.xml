@@ -12,4 +12,50 @@
     <select id="queryAll" resultType="TicketOrder">
         select id, ticket_id ticketId, user_id userId, num, order_num orderNum from ticket_order;
     </select>
+
+    <select id="queryAllOrderPage" resultType="com.day_28.station.entity.OrderPage">
+        SELECT o.id, t.start_station startStation,t.stop_station stopStation, u.user_name userName,  o.num, o.order_num orderNum
+        FROM ticket_order as o
+        LEFT JOIN ticket t ON (o.ticket_id=t.id)
+        LEFT JOIN `user` u ON (o.user_id = u.id)
+    </select>
+
+    <select id="queryByInfo" resultType="com.day_28.station.entity.OrderPage" parameterType="com.day_28.station.queryEntity.OrderQueryObj">
+        SELECT o.id, t.start_station startStation,t.stop_station stopStation, u.user_name userName,  o.num, o.order_num orderNum
+        FROM ticket_order as o
+        LEFT JOIN ticket t ON (o.ticket_id=t.id)
+        LEFT JOIN `user` u ON (o.user_id = u.id)
+        <where>
+            <if test="startStation!=null and startStation!=''">
+                AND start_station LIKE CONCAT('%',#{startStation},'%')
+            </if>
+            <if test="stopStation!=null and stopStation!=''">
+                AND stop_station LIKE CONCAT('%',#{stopStation},'%')
+            </if>
+            <if test="userName!=null and userName!=''">
+                AND user_name LIKE CONCAT('%',#{userName},'%')
+            </if>
+        </where>
+        <if test="startIndex!=null and pageSize!=null">
+            LIMIT  #{startIndex}, #{pageSize}
+        </if>
+    </select>
+
+    <select id="count" resultType="int" parameterType="com.day_28.station.queryEntity.OrderQueryObj">
+        SELECT COUNT(1)
+        FROM ticket_order as o
+        LEFT JOIN ticket t ON (o.ticket_id=t.id)
+        LEFT JOIN `user` u ON (o.user_id = u.id)
+        <where>
+            <if test="startStation!=null and startStation!=''">
+                AND start_station LIKE CONCAT('%',#{startStation},'%')
+            </if>
+            <if test="stopStation!=null and stopStation!=''">
+                AND stop_station LIKE CONCAT('%',#{stopStation},'%')
+            </if>
+            <if test="userName!=null and userName!=''">
+                AND user_name LIKE CONCAT('%',#{userName},'%')
+            </if>
+        </where>
+    </select>
 </mapper>
