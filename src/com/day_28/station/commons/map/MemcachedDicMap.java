@@ -1,4 +1,4 @@
-package com.day_28.station.map;
+package com.day_28.station.commons.map;
 
 import com.day_28.station.dao.IDicMapDao;
 import com.day_28.station.entity.Dic;
@@ -12,30 +12,37 @@ import java.util.Map;
 /**
  * 数据字典
  */
-public class DicMap {
+public class MemcachedDicMap {
 
     private static IDicMapDao dicMapDao;
 
-    private static Map<String, String> map = new HashMap();
+    private static MemcachedAccess memcachedAccess;
+
 
     static {
         //获取应用上下文对象
         ApplicationContext ctx = new ClassPathXmlApplicationContext("spring-config.xml");
         //获取dicDao实例
         dicMapDao = ctx.getBean(IDicMapDao.class);
+        //获取memcached
+        memcachedAccess = (MemcachedAccess) ctx.getBean(MemcachedAccess.class);
         //调用方法初始化字典
         addMapValue();
     }
 
-    public static String getFieldDetail(String tableName, String fieldName, String filedValue) {
+    public static String getFieldDetailByMemcachedAccess(String tableName, String fieldName, String filedValue) {
         String key = tableName + "_" + fieldName + "_" + filedValue;
-        String value = map.get(key);
+        String value = memcachedAccess.get(key);
         if (value == null) { //如果 value 为空 重新查询数据库
             Dic dicQuery = new Dic();
+            //封装字典查询对象
+            dicQuery.setTableName(tableName);
+            dicQuery.setFieldName(fieldName);
+            dicQuery.setFieldValue(filedValue);
             Dic dic = dicMapDao.getDic(dicQuery);
             if (dic != null) {//数据有该值
                 String fieldDescribe = dic.getFieldDescribe();
-                map.put(key, fieldDescribe);
+                memcachedAccess.add(key, 1*60*24, fieldDescribe);
                 return fieldDescribe;
             }
             value = "暂无";
@@ -55,7 +62,7 @@ public class DicMap {
             String fieldValue = dic.getFieldValue();
             String key = tableName + "_" + fieldName + "_" + fieldValue;
             String fieldDescribe = dic.getFieldDescribe();
-            map.put(key, fieldDescribe);
+            memcachedAccess.add(key, 1*60*24, fieldDescribe);
         }
 
     }

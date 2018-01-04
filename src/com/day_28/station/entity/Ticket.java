@@ -1,6 +1,8 @@
 package com.day_28.station.entity;
 
-import com.day_28.station.map.DicMap;
+import com.day_28.station.commons.map.DicMap;
+import com.day_28.station.commons.map.MemcachedAccess;
+import com.day_28.station.commons.map.MemcachedDicMap;
 
 public class Ticket {
     private int id;
@@ -72,7 +74,7 @@ public class Ticket {
     public String getTypeName() {
         //从数据字典中获取类型
         if (typeName==null){
-            typeName = DicMap.getFieldDetail("ticket", "type", type);
+            typeName = MemcachedDicMap.getFieldDetailByMemcachedAccess("ticket", "type", type);
         }
 
         return typeName;

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+    <!--memcached配置-->
+    <bean id="memcachedClient" class="net.rubyeye.xmemcached.utils.XMemcachedClientFactoryBean">
+        <!--服务器端口-->
+        <property name="servers" value="${memcache.servers}"/>
+        <!--权重-->
+        <property name="weights" value="${memcache.servers.weight}"/>
+
+        <property name="sessionLocator">
+            <bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"/>
+        </property>
+
+        <property name="transcoder">
+            <bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder"/>
+        </property>
+
+        <property name="bufferAllocator">
+            <bean class="net.rubyeye.xmemcached.buffer.SimpleBufferAllocator"/>
+        </property>
+    </bean>
+
+    <bean id="memcachedAccess" class="com.day_28.station.commons.map.MemcachedAccess">
+        <property name="client" ref="memcachedClient"/>
+    </bean>
+
+
+
+
+</beans>
