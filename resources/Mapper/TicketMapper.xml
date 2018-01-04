@@ -44,6 +44,12 @@
             <if test="stopStation!='' and stopStation!=null ">
                 AND stop_station=#{stopStation}
             </if>
+            <if test="minTime!=null and minTime!=''">
+                AND departure_time >=#{minTime}
+            </if>
+            <if test="maxTime!=null and maxTime!=''">
+                AND <![CDATA[departure_time<=#{maxTime}]]>
+            </if>
         </where>
     </select>
 
@@ -55,6 +61,12 @@
             </if>
             <if test="stopStation!='' and stopStation!=null ">
                 AND stop_station LIKE CONCAT('%',#{stopStation},'%')
+            </if>
+            <if test="minTime!=null and minTime!=''">
+                AND departure_time >=#{minTime}
+            </if>
+            <if test="maxTime!=null and maxTime!=''">
+                AND <![CDATA[departure_time<=#{maxTime}]]>
             </if>
         </where>
         <if test="pageSize!=null and startIndex!=null ">

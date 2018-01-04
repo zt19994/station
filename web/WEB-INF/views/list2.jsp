@@ -12,6 +12,7 @@
     <%--类型，jquery地址，加/线--%>
     <script type="text/javascript" src="/static/jquery-2.1.3.min.js">
     </script>
+    <script type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
     <%--
     测试jQuery是否加载成功
         <script type="text/javascript">
@@ -31,10 +32,26 @@
 </div>
 <br/>
 <div align="center">
-    起始站：<input id="startStation" type="text" value=""> 到
-    终点站：<input id="stopStation" type="text" value="">
-    <button onclick="loadData()">查询</button>
-    <br/>
+    <table>
+        <tr>
+            <td>起 始 站:<input id="startStation" type="text" value=""> 到</td>
+            <td>终 点 站:<input id="stopStation" type="text" value=""></td>
+        </tr>
+        <tr>
+            <td>
+                开始时间:<input id="minTime" type="text" />
+                <img onclick="WdatePicker({el:'minTime'})" src="/My97DatePicker/skin/datePicker.gif" width="20" height="22" align="absmiddle">
+            </td>
+            <td>
+                结束时间:<input id="maxTime" type="text"/>
+                <img onclick="WdatePicker({el:'maxTime'})" src="/My97DatePicker/skin/datePicker.gif" width="20" height="22" align="absmiddle">
+            </td>
+            <td>
+                <button onclick="loadData()">查询</button>
+            </td>
+        </tr>
+    </table>
+
     <br/>
     <table id="ticketList" cellspacing="1" border="1" width="800">
         <tr>
@@ -146,11 +163,14 @@
         /*把查询数据合成了*/
         var startStation = $("#startStation").val();
         var stopStation = $("#stopStation").val();
-
+        var minTime = $("#minTime").val();
+        var maxTime = $("#maxTime").val();
         var params = {
             startStation: startStation,
             stopStation: stopStation,
-            currentPage: _currentPage
+            currentPage: _currentPage,
+            minTime:minTime,
+            maxTime:maxTime
         };
         var url = 'http://localhost:8080/ticket2/query2';
         jQuery.ajax({

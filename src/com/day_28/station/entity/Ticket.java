@@ -1,7 +1,5 @@
 package com.day_28.station.entity;
 
-import com.day_28.station.commons.map.DicMap;
-import com.day_28.station.commons.map.MemcachedAccess;
 import com.day_28.station.commons.map.MemcachedDicMap;
 
 public class Ticket {

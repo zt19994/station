@@ -4,6 +4,8 @@ public class TicketQueryObj extends BaseQueryObj {
 
     private String startStation;
     private String stopStation;
+    private String minTime;
+    private String maxTime;
 
     public String getStartStation() {
         return startStation;
@@ -21,5 +23,29 @@ public class TicketQueryObj extends BaseQueryObj {
         this.stopStation = stopStation;
     }
 
+    public String getMinTime() {
+        return minTime;
+    }
 
+    public void setMinTime(String minTime) {
+        this.minTime = minTime;
+    }
+
+    public String getMaxTime() {
+        return maxTime;
+    }
+
+    public void setMaxTime(String maxTime) {
+        this.maxTime = maxTime;
+    }
+
+    @Override
+    public String toString() {
+        return "TicketQueryObj{" +
+                "startStation='" + startStation + '\'' +
+                ", stopStation='" + stopStation + '\'' +
+                ", minTime='" + minTime + '\'' +
+                ", maxTime='" + maxTime + '\'' +
+                '}';
+    }
 }

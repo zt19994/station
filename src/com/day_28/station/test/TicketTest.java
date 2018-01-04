@@ -25,11 +25,12 @@ public class TicketTest {
     public void testAddTicket(){
         Ticket ticket = new Ticket();
         ticket.setStartStation("成都");
-        ticket.setStopStation("南充");
-        ticket.setDepartureTime("2018-1-2 16:00");
-        ticket.setPrice(58.0);
+        ticket.setStopStation("北京");
+        ticket.setDepartureTime("2018-1-4");
+        ticket.setPrice(258.0);
         ticket.setTicketNum(40);
-        ticket.setRouteId(5);
+        ticket.setRouteId(3);
+        ticket.setType("1");
         iTicketDao.addTicket(ticket);
     }
 
@@ -50,8 +51,9 @@ public class TicketTest {
     @Test
     public void testCount(){
         TicketQueryObj ticketQueryObj = new TicketQueryObj();
-        ticketQueryObj.setStartStation("成都");
+        //ticketQueryObj.setStartStation("成都");
         //ticketQueryObj.setStopStation("南充");
+        ticketQueryObj.setMaxTime("2017-12-25");
         int count = iTicketDao.count(ticketQueryObj);
         System.out.println(count);
     }
@@ -65,7 +67,7 @@ public class TicketTest {
         TicketQueryObj ticketQueryObj = new TicketQueryObj();
         //ticketQueryObj.setStartStation("成都");
         //ticketQueryObj.setStopStation("南充");
-
+        ticketQueryObj.setMaxTime("2017-12-25");
         List<Ticket> tickets = iTicketDao.queryByInfo(ticketQueryObj);
         for (Ticket ticket : tickets) {
             System.out.println(ticket);
