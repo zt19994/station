@@ -1,7 +1,5 @@
 package com.day_28.station.test;
 
-import com.day_28.station.commons.map.MemcachedAccess;
-import com.day_28.station.commons.map.MemcachedDicMap;
 import com.day_28.station.dao.IDicMapDao;
 import com.day_28.station.entity.Dic;
 import org.junit.Test;
@@ -18,9 +16,6 @@ public class DicMapTest {
     @Autowired
     private IDicMapDao dicMapDao;
 
-    @Autowired
-    private MemcachedAccess memcachedAccess;
-
     /**
     * 测试查询数据字典
     */
@@ -31,6 +26,4 @@ public class DicMapTest {
             System.out.println(dic);
         }
     }
-
-
 }
