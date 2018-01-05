@@ -66,9 +66,14 @@ public class Ticket2Controller {
      */
     @RequestMapping("query2")
     @ResponseBody
-    public PageInfo<Ticket> query2(TicketQueryObj ticketQueryObj){
+    public Result query2(TicketQueryObj ticketQueryObj){
         PageInfo<Ticket> pageInfo = ticketService.getPageInfo(ticketQueryObj);
-        return pageInfo;
+        Result<Object> result = new Result<>();
+        result.setData(pageInfo);
+        result.setMsg("获取数据");
+        result.setCode("0000");
+        result.setSuccess(true);
+        return result;
     }
 
     @RequestMapping("buyTicket")

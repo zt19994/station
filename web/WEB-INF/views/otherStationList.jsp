@@ -1,36 +1,22 @@
 <%--
   Created by IntelliJ IDEA.
   User: ASUS
-  Date: 2017/12/27
-  Time: 13:44
+  Date: 2018/1/5
+  Time: 13:42
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="utf-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
-    <title>车票列表</title>
-    <%--类型，jquery地址，加/线--%>
+    <title>站间互售车票列表</title>
     <script type="text/javascript" src="/static/jquery-2.1.3.min.js">
     </script>
     <script type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
-    <%--
-    测试jQuery是否加载成功
-        <script type="text/javascript">
-            alert($);
-        </script>--%>
-
 </head>
 <body>
-<div align="center">
-    <h1>车票列表</h1>
+<div>
+    <h1 align="center">站间互售车票列表</h1>
 </div>
-<div align="center">
-    <button onclick="logout()">注销</button>
-    <button onclick="login()">登录</button>
-    <button onclick="register()">注册</button>
-    <button onclick="ticketOrder()">查看订单列表</button>
-</div>
-<br/>
 <div align="center">
     <table>
         <tr>
@@ -51,7 +37,6 @@
             </td>
         </tr>
     </table>
-
     <br/>
     <table id="ticketList" cellspacing="1" border="1" width="800">
         <tr>
@@ -62,7 +47,6 @@
             <td>票价</td>
             <td>余票</td>
             <td>类型</td>
-            <td>里程(未关联)</td>
             <td>操作</td>
         </tr>
     </table>
@@ -76,40 +60,14 @@
     第 <span id="currentPage"></span>/<span id="totalPage"></span> 页，
     分页条数 <span id="pageSize"></span> 条，
     总共 <span id="count"></span> 条
-
 </div>
 </body>
-
 <script type="text/javascript">
-    //查看订单列表
-    function ticketOrder() {
-        //alert("ticketOrder");
-        location.href = "http://localhost:8080/order/order";
-    }
-
-    //注销
-    function logout() {
-        location.href = "http://localhost:8080/login/logout";
-    }
-
-
-    //登录
-    function login() {
-        //alert("login");
-        location.href = "http://localhost:8080/login/toLogin";
-    }
-
-    //注册
-    function register() {
-        //alert("logon");
-        location.href = "http://localhost:8080/register/toRegister";
-    }
-
     //首页
     function firstPage() {
         //alert("firstPage");
         var currentPage = 1;
-        loadData(currentPage);
+        loadData(3,currentPage);
     }
 
     //上一页
@@ -122,7 +80,7 @@
             return _currentPage;
         }
         //alert(_currentPage);
-        loadData(_currentPage);
+        loadData(3,_currentPage);
     }
 
     //下一页
@@ -136,12 +94,12 @@
         }
         var _currentPage = parseInt(currentPage) + 1;
         //alert(_currentPage);
-        loadData(_currentPage)
+        loadData(3,_currentPage)
     }
     //末页
     function lastPage() {
         var currentPage = $("#totalPage").html();
-        loadData(currentPage);
+        loadData(3,currentPage);
     }
     //跳转页
     function jumpPage() {
@@ -149,30 +107,21 @@
         var currentPage = $("#jumpPage").val();
         if (currentPage<=1){
             currentPage = 1;
-            loadData(currentPage);
+            loadData(3,currentPage);
         }else if (currentPage>=totalPage){
             currentPage=totalPage;
-            loadData(currentPage);
+            loadData(3,currentPage);
         }else {
-            loadData(currentPage);
+            loadData(3,currentPage);
         }
     }
-
-
-    function loadData(_currentPage) {
-        /*把查询数据合成了*/
-        var startStation = $("#startStation").val();
-        var stopStation = $("#stopStation").val();
-        var minTime = $("#minTime").val();
-        var maxTime = $("#maxTime").val();
+    function loadData(pageSize, currentPage) {
+        //alert("loadDATA");
         var params = {
-            startStation: startStation,
-            stopStation: stopStation,
-            currentPage: _currentPage,
-            minTime:minTime,
-            maxTime:maxTime
+            pageSize:pageSize,
+            currentPage:currentPage
         };
-        var url = 'http://localhost:8080/ticket2/query2';
+        var url = 'http://localhost:8080/otherStation/loadData';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -191,7 +140,6 @@
                     '<td>票价</td>' +
                     '<td>余票</td>' +
                     '<td>类型</td>' +
-                    '<td>里程(未关联)</td>' +
                     '<td>操作</td>' +
                     '</tr>';
 
@@ -211,7 +159,6 @@
                     var price = ticket.price;
                     var ticketNum = ticket.ticketNum;
                     var typeName = ticket.typeName;
-                    var routeId = ticket.routeId;
 
 
                     html = html +
@@ -223,7 +170,6 @@
                         '<td>' + price + '</td>' +
                         '<td>' + ticketNum + '</td>' +
                         '<td>' + typeName + '</td>' +
-                        '<td>' + routeId + '</td>' +
                         '<td align="center">' +
                         '<button onclick="buyTicket(' + id + ')">购买</button>' +
                         '</td>' +
@@ -235,6 +181,7 @@
                 $("#pageSize").html(pageSize);
                 $("#count").html(count);
                 $("#totalPage").html(totalPage);
+
             },
             error: function (data) {
                 /*alert("失败啦");*/
@@ -248,7 +195,7 @@
         var params = {
             id: id
         };
-        var url = 'http://localhost:8080/ticket2/buyTicket';
+        var url = 'http://localhost:8080/otherStation/buyOtherTicket';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -264,7 +211,7 @@
                 var msg = data.msg;
                 if (code == "0000") {
                     //alert(msg);
-                    location.href = "http://localhost:8080/ticket2/page";
+                    location.href = "http://localhost:8080/otherStation/toOtherStationList";
                     return false
                 } else {
                     //alert(msg);
@@ -276,7 +223,7 @@
         });
     }
 
-    loadData(1);
+    loadData(3,1);
 </script>
 
 </html>

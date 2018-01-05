@@ -15,7 +15,7 @@
     <h1 align="center">导航页面</h1>
     <div align="center">
         <button onclick="ticket2()">车票列表</button>
-        <br/>
+        <button onclick="buyTicketOtherStation()">站间互售</button>
         <button onclick="userList()">用户列表</button>
         <br>
         <button onclick="login()">登录</button>
@@ -24,7 +24,11 @@
     </body>
 <script type="text/javascript">
     function ticket2() {
-        location.href="http://localhost:8080//ticket2/page";
+        location.href="http://localhost:8080/ticket2/page";
+    }
+
+    function buyTicketOtherStation() {
+        location.href="http://localhost:8080/otherStation/toOtherStationList";
     }
 
 
