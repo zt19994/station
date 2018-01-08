@@ -27,4 +27,11 @@ public interface IOrderService {
      * @return
      */
     PageInfo<OrderPage> getPageInfo(OrderQueryObj orderQueryObj);
+
+    /**
+     * 退票，返回是否退票成功
+     * @param orderId
+     * @return
+     */
+    Boolean refundTicket(Integer orderId);
 }

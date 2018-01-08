@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <bean id="txService" class="com.day_28.station.transaction.TransactionService"/>
+    <bean id="txManager" class="com.day_28.station.transaction.TransactionManage"/>
+
+    <aop:config>
+        <aop:aspect ref="txManager">
+            <!--地点:方法-->
+            <aop:pointcut id="txPoint" expression=" execution(* com.day_28.station.transaction.*Service.*(..) )"/>
+
+            <!--时间-->
+            <!--在执行购票前-->
+            <aop:before method="beforeBuyTicket" pointcut-ref="txPoint"/>
+            <!--购票后-->
+            <aop:after-returning method="afterBuyTicket" pointcut-ref="txPoint"/>
+            <!--异常时-->
+            <aop:after-throwing method="rollBack" pointcut-ref="txPoint"/>
+        </aop:aspect>
+    </aop:config>
+
+</beans>

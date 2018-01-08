@@ -9,7 +9,9 @@ public class OrderPage {
     private String stopStation;
     private String userName;
     private Integer num;
+    private Integer state;
     private String orderNum;
+    private String createTime;
 
     public Integer getId() {
         return id;
@@ -51,12 +53,28 @@ public class OrderPage {
         this.num = num;
     }
 
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
     public String getOrderNum() {
         return orderNum;
     }
 
     public void setOrderNum(String orderNum) {
         this.orderNum = orderNum;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 
     @Override
@@ -67,7 +85,9 @@ public class OrderPage {
                 ", stopStation='" + stopStation + '\'' +
                 ", userName='" + userName + '\'' +
                 ", num=" + num +
-                ", orderNum=" + orderNum +
+                ", state=" + state +
+                ", orderNum='" + orderNum + '\'' +
+                ", createTime='" + createTime + '\'' +
                 '}';
     }
 }

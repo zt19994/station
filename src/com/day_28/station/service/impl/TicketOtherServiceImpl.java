@@ -25,23 +25,19 @@ public class TicketOtherServiceImpl implements ITicketOtherService {
 
     @Override
     public PageInfo<Ticket> queryOtherTicket(TicketQueryObj ticketQueryObj) {
-        String url = "http://10.3.2.154:8080/ticket/data2";
+        Integer currentPage1 = ticketQueryObj.getCurrentPage();
+        Integer pageSize1 = ticketQueryObj.getPageSize();
+        String url = "http://10.3.2.154:8080/ticket/data2?_currentPage=" + currentPage1 + "&_pageSize=" + pageSize1;
         PageInfo<Ticket> pageInfo = new PageInfo<>();
         List<Ticket> list1 = new ArrayList<>();
 
-        String post = null;
         try {
-            post = HttpClientUtil.post(url);
-            String post1 = "{list:" + post + "}";
-            JSONObject jsonObject = JSONObject.fromObject(post1);
+            String post = HttpClientUtil.post(url);
+            JSONObject jsonObject = JSONObject.fromObject(post);
             int currentPage = jsonObject.getInt("currentPage");
-
             int totalPage = jsonObject.getInt("totalPage");
-
             int pageSize = jsonObject.getInt("pageSize");
-
             int count = jsonObject.getInt("count");
-
             JSONArray list = jsonObject.getJSONArray("list");
             for (int i=0;i<list.size();i++) {
                 JSONObject jsonObject1 = list.getJSONObject(i);
@@ -80,7 +76,6 @@ public class TicketOtherServiceImpl implements ITicketOtherService {
         boolean flag = true;
 
         String url = "http://10.3.2.154:8080/ticket/data3?id=" + ticketId +"&token=123";
-        System.out.println(url);
         try {
             String post = HttpClientUtil.post(url);
             JSONObject jsonObject = JSONObject.fromObject(post);

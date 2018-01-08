@@ -39,10 +39,10 @@
         SELECT count(1) FROM ticket
         <where>
             <if test="startStation!=null and startStation!=''">
-                AND start_station=#{startStation}
+                AND start_station LIKE CONCAT('%',#{startStation},'%')
             </if>
             <if test="stopStation!='' and stopStation!=null ">
-                AND stop_station=#{stopStation}
+                AND stop_station LIKE CONCAT('%',#{stopStation},'%')
             </if>
             <if test="minTime!=null and minTime!=''">
                 AND departure_time >=#{minTime}
@@ -79,4 +79,6 @@
         SELECT id, start_station, stop_station, departure_time, price, ticket_num,type, route_id FROM ticket
         WHERE id=#{id}
     </select>
+
+
 </mapper>

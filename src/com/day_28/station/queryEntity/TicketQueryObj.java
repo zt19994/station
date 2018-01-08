@@ -1,5 +1,7 @@
 package com.day_28.station.queryEntity;
 
+import org.apache.commons.lang.StringUtils;
+
 public class TicketQueryObj extends BaseQueryObj {
 
     private String startStation;
@@ -36,6 +38,10 @@ public class TicketQueryObj extends BaseQueryObj {
     }
 
     public void setMaxTime(String maxTime) {
+        //最大时间需要到23:59:59
+        if (StringUtils.isNotBlank(maxTime)){
+            maxTime = maxTime + " 23:59:59";
+        }
         this.maxTime = maxTime;
     }
 

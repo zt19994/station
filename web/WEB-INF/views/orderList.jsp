@@ -10,22 +10,43 @@
 <head>
     <title>车票订单列表</title>
     <script type="text/javascript" src="/static/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
 <h1 align="center">车票订单列表</h1>
 <div align="center">
-    起始站：<input id="startStation" type="text" value=""> 到
-    终点站：<input id="stopStation" type="text" value="">
-    用户名：<input id="userName" type="text" value="">
-    <button onclick="loadData()">查询</button>
-    <table id="orderList" cellspacing="1" border="1" width="800">
+
+    <table>
+        <tr>
+            <td>起 始 站:<input id="startStation" type="text" value=""> 到</td>
+            <td>终 点 站:<input id="stopStation" type="text" value=""></td>
+            <td>用户名：<input id="userName" type="text" value=""></td>
+        </tr>
+        <tr>
+            <td>
+                开始时间:<input id="minTime" type="text" />
+                <img onclick="WdatePicker({el:'minTime'})" src="/My97DatePicker/skin/datePicker.gif" width="20" height="22" align="absmiddle">
+            </td>
+            <td>
+                结束时间:<input id="maxTime" type="text"/>
+                <img onclick="WdatePicker({el:'maxTime'})" src="/My97DatePicker/skin/datePicker.gif" width="20" height="22" align="absmiddle">
+            </td>
+            <td>
+                <button onclick="loadData()">查询</button>
+            </td>
+        </tr>
+    </table>
+    <table id="orderList" cellspacing="1" border="1" width="850">
         <tr>
             <td>编号</td>
             <td>起始站</td>
             <td>终点站</td>
             <td>用户名</td>
             <td>购买数量</td>
+            <td>状态</td>
             <td>订单编号</td>
+            <td>创建时间</td>
+            <td>操作</td>
         </tr>
     </table>
     <br/>
@@ -101,12 +122,16 @@
         var startStation = $("#startStation").val();
         var stopStation = $("#stopStation").val();
         var userName = $("#userName").val();
+        var minTime = $("#minTime").val();
+        var maxTime = $("#maxTime").val();
 
         var params = {
             startStation: startStation,
             stopStation: stopStation,
             userName: userName,
-            currentPage: currentPage
+            currentPage: currentPage,
+            minTime:minTime,
+            maxTime:maxTime
         };
         var url = 'http://localhost:8080/order/data3';
         jQuery.ajax({
@@ -132,26 +157,42 @@
                     '<td>终点站</td>' +
                     '<td>用户名</td>' +
                     '<td>购买数量</td>' +
+                    '<td>状态</td>' +
                     '<td>订单编号</td>' +
+                    '<td>创建时间</td>' +
+                    '<td>操作</td>' +
                     '</tr>';
 
                 for (var i = 0; i < orderList.length; i++) {
                     var orderPage = orderList[i];
-                    var id = orderPage.id;
+                    var orderId = orderPage.id;
                     var startStation = orderPage.startStation;
                     var stopStation = orderPage.stopStation;
                     var userName = orderPage.userName;
                     var num = orderPage.num;
+                    var state = orderPage.state;
+                    var stateString;
+                    if (state==1){
+                        stateString = "已出售";
+                    }else if(state==2){
+                        stateString = "已退票";
+                    }
                     var orderNum = orderPage.orderNum;
+                    var createTime = orderPage.createTime;
 
                     html = html +
                         '<tr>' +
-                        '<td>' + id + '</td>' +
+                        '<td>' + orderId + '</td>' +
                         '<td>' + startStation + '</td>' +
                         '<td>' + stopStation + '</td>' +
                         '<td>' + userName + '</td>' +
                         '<td>' + num + '</td>' +
+                        '<td>' + stateString + '</td>' +
                         '<td>' + orderNum + '</td>' +
+                        '<td>' + createTime + '</td>' +
+                        '<td align="center">' +
+                        '<button onclick="refundTicket(' + orderId + ')">退票</button>' +
+                        '</td>' +
                         '</tr>';
                 }
                 $("#orderList").html(html);
@@ -167,6 +208,37 @@
         });
     }
 
+    function refundTicket(id) {
+        alert("refundTicket");
+        //alert("buyTicket");
+
+        var params = {
+            id: id
+        };
+        var url = 'http://localhost:8080/order/refundTicket';
+        jQuery.ajax({
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            url: url,
+            data: params,
+            dataType: 'json',
+
+            success: function (data) {
+                var code = data.code;
+                var msg = data.msg;
+                if (code == "0000") {
+                    //alert(msg);
+                    location.href = "http://localhost:8080/order/order";
+                    return false
+                } else {
+                    //alert(msg);
+                }
+            },
+            error: function (data) {
+                alert("失败啦");
+            }
+        });
+    }
     loadData(1);
 </script>
 </html>

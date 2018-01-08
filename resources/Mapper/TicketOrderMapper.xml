@@ -5,23 +5,32 @@
 
 <mapper namespace="com.day_28.station.dao.ITicketOrderDao">
     <insert id="addTicketOrder" parameterType="TicketOrder">
-        INSERT INTO ticket_order (ticket_id, user_id, num, order_num) VALUES
-        (#{ticketId}, #{userId}, #{num}, #{orderNum})
+        INSERT INTO
+        ticket_order (ticket_id, user_id, num, order_num, create_time)
+        VALUES
+        (#{ticketId}, #{userId}, #{num}, #{orderNum}, now())
     </insert>
 
     <select id="queryAll" resultType="TicketOrder">
-        select id, ticket_id ticketId, user_id userId, num, order_num orderNum from ticket_order;
+        select
+        id, ticket_id ticketId, user_id userId, num, state, order_num orderNum, create_time createTime
+        from
+        ticket_order;
     </select>
 
     <select id="queryAllOrderPage" resultType="com.day_28.station.entity.OrderPage">
-        SELECT o.id, t.start_station startStation,t.stop_station stopStation, u.user_name userName,  o.num, o.order_num orderNum
+        SELECT
+        o.id, t.start_station startStation,t.stop_station stopStation, u.user_name userName, o.num,
+        o.state, o.order_num orderNum, o.create_time createTime
         FROM ticket_order as o
         LEFT JOIN ticket t ON (o.ticket_id=t.id)
         LEFT JOIN `user` u ON (o.user_id = u.id)
     </select>
 
     <select id="queryByInfo" resultType="com.day_28.station.entity.OrderPage" parameterType="com.day_28.station.queryEntity.OrderQueryObj">
-        SELECT o.id, t.start_station startStation,t.stop_station stopStation, u.user_name userName,  o.num, o.order_num orderNum
+        SELECT
+        o.id, t.start_station startStation,t.stop_station stopStation, u.user_name userName,  o.num,
+        o.state, o.order_num orderNum, o.create_time createTime
         FROM ticket_order as o
         LEFT JOIN ticket t ON (o.ticket_id=t.id)
         LEFT JOIN `user` u ON (o.user_id = u.id)
@@ -34,6 +43,12 @@
             </if>
             <if test="userName!=null and userName!=''">
                 AND user_name LIKE CONCAT('%',#{userName},'%')
+            </if>
+            <if test="minTime!=null and minTime!=''">
+                AND o.create_time >=#{minTime}
+            </if>
+            <if test="maxTime!=null and maxTime!=''">
+                AND <![CDATA[o.create_time<=#{maxTime}]]>
             </if>
         </where>
         <if test="startIndex!=null and pageSize!=null">
@@ -56,6 +71,23 @@
             <if test="userName!=null and userName!=''">
                 AND user_name LIKE CONCAT('%',#{userName},'%')
             </if>
+            <if test="minTime!=null and minTime!=''">
+                AND o.create_time >= #{minTime}
+            </if>
+            <if test="maxTime!=null and maxTime!=''">
+                AND <![CDATA[o.create_time<=#{maxTime}]]>
+            </if>
         </where>
     </select>
+
+    <select id="queryOrderById" resultType="com.day_28.station.entity.TicketOrder" parameterType="int">
+        SELECT
+        id, ticket_id ticketId, user_id userId, num, state, order_num orderNum, create_time createTime
+        FROM ticket_order
+        WHERE id = #{id}
+    </select>
+
+    <update id="refundTicket" parameterType="int">
+        UPDATE ticket_order SET state=2 WHERE id = #{id}
+    </update>
 </mapper>

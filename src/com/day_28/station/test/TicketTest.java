@@ -26,7 +26,7 @@ public class TicketTest {
         Ticket ticket = new Ticket();
         ticket.setStartStation("成都");
         ticket.setStopStation("北京");
-        ticket.setDepartureTime("2018-1-4");
+        ticket.setDepartureTime("2018-1-8 10:00:00");
         ticket.setPrice(258.0);
         ticket.setTicketNum(40);
         ticket.setRouteId(3);
@@ -53,7 +53,7 @@ public class TicketTest {
         TicketQueryObj ticketQueryObj = new TicketQueryObj();
         //ticketQueryObj.setStartStation("成都");
         //ticketQueryObj.setStopStation("南充");
-        ticketQueryObj.setMaxTime("2017-12-25");
+        ticketQueryObj.setMaxTime("2017-12-26");
         int count = iTicketDao.count(ticketQueryObj);
         System.out.println(count);
     }

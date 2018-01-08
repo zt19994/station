@@ -5,6 +5,7 @@ public class TicketOrder {
     private Integer ticketId;
     private Integer userId;
     private Integer num;
+    private Integer state;
     private String orderNum;
 
     public Integer getId() {
@@ -39,6 +40,14 @@ public class TicketOrder {
         this.num = num;
     }
 
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
     public String getOrderNum() {
         return orderNum;
     }
@@ -54,7 +63,8 @@ public class TicketOrder {
                 ", ticketId=" + ticketId +
                 ", userId=" + userId +
                 ", num=" + num +
-                ", orderNum=" + orderNum +
+                ", state=" + state +
+                ", orderNum='" + orderNum + '\'' +
                 '}';
     }
 }

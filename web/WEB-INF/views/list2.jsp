@@ -29,6 +29,7 @@
     <button onclick="login()">登录</button>
     <button onclick="register()">注册</button>
     <button onclick="ticketOrder()">查看订单列表</button>
+    <span>售票员:${LOGIN_IN_SESSION.userName}</span>
 </div>
 <br/>
 <div align="center">

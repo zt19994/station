@@ -62,7 +62,8 @@ public class TicketOrderTest {
     @Test
     public void testQueryByInfo(){
         OrderQueryObj orderQueryObj = new OrderQueryObj();
-        orderQueryObj.setStartStation("南京");
+        orderQueryObj.setStartStation("成都");
+        orderQueryObj.setMinTime("2017-12-26 00:00:00");
         List<OrderPage> orderPages = ticketOrderDao.queryByInfo(orderQueryObj);
         for (OrderPage orderPage : orderPages) {
             System.out.println(orderPage);
@@ -76,7 +77,17 @@ public class TicketOrderTest {
     public void testCount(){
         OrderQueryObj orderQueryObj = new OrderQueryObj();
         orderQueryObj.setStartStation("南京");
+        orderQueryObj.setMinTime("2017-12-26");
         int count = ticketOrderDao.count(orderQueryObj);
         System.out.println(count);
+    }
+
+    /**
+    * 测试通过id查询订单信息
+    */
+    @Test
+    public void testQueryById(){
+        TicketOrder ticketOrder = ticketOrderDao.queryOrderById(2);
+        System.out.println(ticketOrder);
     }
 }

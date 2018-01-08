@@ -39,4 +39,16 @@ public interface ITicketOrderDao {
      */
     int count(OrderQueryObj orderQueryObj);
 
+    /**
+     * 通过订单id查询订单
+     * @param id
+     * @return
+     */
+    TicketOrder queryOrderById(Integer id);
+
+    /**
+     * 退票处理，把state修改为2
+     * @param id
+     */
+    void refundTicket(Integer id);
 }

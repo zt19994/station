@@ -69,4 +69,27 @@ public class TicketOrderController {
         return pageInfo;
     }
 
+
+    /**
+     * 退票
+     * @param id
+     * @return
+     */
+    @RequestMapping("refundTicket")
+    @ResponseBody
+    public Result refundTicket(Integer id){
+        Result<Object> result = new Result<>();
+        //调用方法，判断是否修改状态成功
+        Boolean aBoolean = orderService.refundTicket(id);
+        if (aBoolean){
+            //退票成功
+            result.setCode("0000");
+            result.setMsg("退票成功");
+        }else {
+            result.setCode("0001");
+            result.setMsg("退票失败");
+        }
+        return result;
+    }
+
 }

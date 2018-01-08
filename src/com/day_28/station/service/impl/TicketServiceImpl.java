@@ -10,6 +10,7 @@ import com.day_28.station.service.ITicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -59,8 +60,15 @@ public class TicketServiceImpl implements ITicketService {
     public PageInfo<Ticket> getPageInfo(TicketQueryObj ticketQueryObj) {
         PageInfo<Ticket> pageInfo = new PageInfo<>();
         //封装页面对象 1.车票列表
+        List<Ticket> tickets1=new ArrayList<>();
         List<Ticket> tickets = iTicketDao.queryByInfo(ticketQueryObj);
-        pageInfo.setList(tickets);
+        for (Ticket ticket : tickets) {
+            String departureTime = ticket.getDepartureTime();
+            String substring = departureTime.substring(0, 19);
+            ticket.setDepartureTime(substring);
+            tickets1.add(ticket);
+        }
+        pageInfo.setList(tickets1);
         //车票总条数
         int count = iTicketDao.count(ticketQueryObj);
         pageInfo.setCount(count);
