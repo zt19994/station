@@ -7,6 +7,7 @@ import com.day_28.station.entity.User;
 import com.day_28.station.pageEntity.PageInfo;
 import com.day_28.station.queryEntity.TicketQueryObj;
 import com.day_28.station.service.ITicketService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,14 +79,19 @@ public class Ticket2Controller {
 
     @RequestMapping("buyTicket")
     @ResponseBody
-    public Result buyTicket(Integer id, HttpSession httpSession){
+    public Result buyTicket(Integer id,String token, HttpSession httpSession){
         Result<Object> result = new Result<>();
 
         //在session中获取用户id
         User loginInSession = (User)httpSession.getAttribute("LOGIN_IN_SESSION");
-        Integer userId = loginInSession.getId();
-        //调用业务方法，判断是否购票成功
-        Boolean aBoolean = ticketService.buyTicket(userId, id);
+        Boolean aBoolean = null;
+        if (StringUtils.isNotBlank(token)){
+            aBoolean = ticketService.buyTicket(5, id, token);
+        }else {
+            Integer userId = loginInSession.getId();
+            //调用业务方法，判断是否购票成功
+            aBoolean = ticketService.buyTicket(userId, id, token);
+        }
         if (aBoolean){
             //为true，购票成功
             result.setCode("0000");

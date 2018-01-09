@@ -28,6 +28,7 @@ public class TicketOrderTest {
         ticketOrder.setTicketId(1);
         ticketOrder.setUserId(1);
         ticketOrder.setNum(1);
+        ticketOrder.setState(1);
         String orderNum = UUID.randomUUID().toString();
         ticketOrder.setOrderNum(orderNum);
         System.out.println(ticketOrder);

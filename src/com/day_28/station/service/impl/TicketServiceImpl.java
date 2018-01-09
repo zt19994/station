@@ -7,8 +7,10 @@ import com.day_28.station.entity.TicketOrder;
 import com.day_28.station.pageEntity.PageInfo;
 import com.day_28.station.queryEntity.TicketQueryObj;
 import com.day_28.station.service.ITicketService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.swing.StringUIClientPropertyKey;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,7 +87,7 @@ public class TicketServiceImpl implements ITicketService {
     }
 
     @Override
-    public Boolean buyTicket(Integer userId, Integer ticketId) {
+    public Boolean buyTicket(Integer userId, Integer ticketId, String token){
         //1.查询原来的余票
         Ticket ticket = iTicketDao.queryById(ticketId);
         Integer ticketNum = ticket.getTicketNum();
@@ -93,6 +95,28 @@ public class TicketServiceImpl implements ITicketService {
         //a.判断余票是否小于0，小于则返回false
         if (ticketNum <= 0) {
             return false;
+        }
+        if (StringUtils.isNotBlank(token)){
+            //外网
+            //b.余票减少一张
+            ticketNum = ticketNum - 1;
+            //更新车票信息
+            ticket.setTicketNum(ticketNum);
+            iTicketDao.updateTicket(ticket);
+            //3.生成订单, ticketId, userId, ticketNum购买数量, orderNum订单编号
+            TicketOrder ticketOrder = new TicketOrder();
+            ticketOrder.setTicketId(ticketId);
+            //id为5，是外网
+            ticketOrder.setUserId(5);
+            //购买1张
+            ticketOrder.setNum(1);
+            //通过UUID生成订单编号
+            ticketOrder.setState(1);
+            String orderNum = UUID.randomUUID().toString();
+            ticketOrder.setOrderNum(orderNum);
+            //调用方法生成订单
+            iTicketOrderDao.addTicketOrder(ticketOrder);
+            return true;
         }
         //b.余票减少一张
         ticketNum = ticketNum - 1;
@@ -106,6 +130,7 @@ public class TicketServiceImpl implements ITicketService {
         //购买1张
         ticketOrder.setNum(1);
         //通过UUID生成订单编号
+        ticketOrder.setState(1);
         String orderNum = UUID.randomUUID().toString();
         ticketOrder.setOrderNum(orderNum);
         //调用方法生成订单

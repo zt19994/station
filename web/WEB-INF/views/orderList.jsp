@@ -209,9 +209,6 @@
     }
 
     function refundTicket(id) {
-        alert("refundTicket");
-        //alert("buyTicket");
-
         var params = {
             id: id
         };
@@ -227,11 +224,11 @@
                 var code = data.code;
                 var msg = data.msg;
                 if (code == "0000") {
-                    //alert(msg);
+                    alert(msg);
                     location.href = "http://localhost:8080/order/order";
                     return false
                 } else {
-                    //alert(msg);
+                    alert(msg);
                 }
             },
             error: function (data) {

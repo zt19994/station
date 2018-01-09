@@ -4,6 +4,8 @@ package com.day_28.station.controller.portal;
 import com.day_28.station.entity.Result;
 import com.day_28.station.entity.User;
 import com.day_28.station.service.IUserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,8 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/login/")
 public class UserLoginController {
+    private static final Logger logger = LoggerFactory.getLogger(UserLoginController.class);
+
     @Autowired
     private IUserService userService;
 
@@ -29,6 +33,7 @@ public class UserLoginController {
      */
     @RequestMapping("toLogin")
     public ModelAndView toLogin(HttpSession httpSession) {
+        logger.info("---log---");
         ModelAndView modelAndView = new ModelAndView();
         //获取登录随机数,为了防止表单提交重复
         String loginToken = UUID.randomUUID().toString();
@@ -38,6 +43,7 @@ public class UserLoginController {
         //保存在前端的token
         modelAndView.addObject("loginToken", loginToken);
         modelAndView.setViewName("login");
+        logger.info("---afterlog---");
         return modelAndView;
     }
 
@@ -89,12 +95,12 @@ public class UserLoginController {
             //没有获取到token，重复提交
             System.out.println("重复提交1");
             result.setCode("0003");
-            result.setMsg("重复提交");
+            result.setMsg("重复提交1");
             return result;
         } else if (!tokenInSession.equals(loginToken)) {
             System.out.println("重复提交2");
             result.setCode("0003");
-            result.setMsg("重复提交");
+            result.setMsg("重复提交2");
             return result;
         }
 

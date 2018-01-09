@@ -55,9 +55,36 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
         <property name="suffix" value=".jsp"/>
     </bean>
 
+
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 配置事务特性 -->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true" propagation="NEVER" />
+            <tx:method name="query*" read-only="true" propagation="NEVER" />
+            <tx:method name="list*" read-only="true" propagation="NEVER" />
+            <tx:method name="search*" read-only="true" propagation="NEVER" />
+            <!--其他方法都做事物-->
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 配置哪些类的方法需要进行事务管理 -->
+    <aop:config>
+        <aop:pointcut id="txPoint"
+                      expression=" execution(* com.day_28.station.service.impl.*ServiceImpl.*(..) )" />
+        <aop:advisor pointcut-ref="txPoint" advice-ref="txAdvice" />
+    </aop:config>
+
     <!--引入memcached-->
-    <import resource="spring/spring-memcached.xml"/>
+    <import resource="classpath:spring/spring-memcached.xml"/>
 
     <!--引入拦截器-->
     <import resource="classpath:spring/spring-loginInterceptor.xml"/>
+
+    <!--引入aop配置-->
+    <import resource="classpath:spring/spring-aop.xml"/>
 </beans>

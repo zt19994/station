@@ -73,8 +73,6 @@ public class TicketOtherServiceImpl implements ITicketOtherService {
 
     @Override
     public Boolean buyOtherTicket(User user, Integer ticketId) {
-        boolean flag = true;
-
         String url = "http://10.3.2.154:8080/ticket/data3?id=" + ticketId +"&token=123";
         try {
             String post = HttpClientUtil.post(url);
@@ -99,7 +97,7 @@ public class TicketOtherServiceImpl implements ITicketOtherService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return flag;
+        return true;
     }
 
 

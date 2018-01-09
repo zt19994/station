@@ -55,5 +55,5 @@ public interface ITicketService {
      * @param ticketId
      * @return
      */
-    Boolean buyTicket(Integer userId, Integer ticketId);
+    Boolean buyTicket(Integer userId, Integer ticketId, String token);
 }

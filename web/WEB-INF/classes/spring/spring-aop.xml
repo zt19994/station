@@ -2,28 +2,28 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
          http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
-        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <bean id="txService" class="com.day_28.station.transaction.TransactionService"/>
-    <bean id="txManager" class="com.day_28.station.transaction.TransactionManage"/>
+    <!--日志管理-->
+    <bean id="webAspectLog" class="com.day_28.station.aop.webAspectLog"/>
 
     <aop:config>
-        <aop:aspect ref="txManager">
+        <aop:aspect ref="webAspectLog">
             <!--地点:方法-->
-            <aop:pointcut id="txPoint" expression=" execution(* com.day_28.station.transaction.*Service.*(..) )"/>
+            <aop:pointcut id="Pointcut" expression=" execution(* com.day_28.station.controller.portal.*Controller.*(..) )"/>
 
-            <!--时间-->
-            <!--在执行购票前-->
-            <aop:before method="beforeBuyTicket" pointcut-ref="txPoint"/>
-            <!--购票后-->
-            <aop:after-returning method="afterBuyTicket" pointcut-ref="txPoint"/>
-            <!--异常时-->
-            <aop:after-throwing method="rollBack" pointcut-ref="txPoint"/>
+            <aop:before method="beforeLog" pointcut-ref="Pointcut"/>
+
+            <aop:after-returning method="afterLog" pointcut-ref="Pointcut" returning="returnObject"/>
+
         </aop:aspect>
     </aop:config>
+
+
 
 </beans>

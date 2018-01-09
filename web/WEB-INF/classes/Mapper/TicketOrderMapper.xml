@@ -6,9 +6,9 @@
 <mapper namespace="com.day_28.station.dao.ITicketOrderDao">
     <insert id="addTicketOrder" parameterType="TicketOrder">
         INSERT INTO
-        ticket_order (ticket_id, user_id, num, order_num, create_time)
+        ticket_order (ticket_id, user_id, num, state, order_num, create_time, update_time)
         VALUES
-        (#{ticketId}, #{userId}, #{num}, #{orderNum}, now())
+        (#{ticketId}, #{userId}, #{num}, #{state}, #{orderNum}, now(), now())
     </insert>
 
     <select id="queryAll" resultType="TicketOrder">
@@ -88,6 +88,6 @@
     </select>
 
     <update id="refundTicket" parameterType="int">
-        UPDATE ticket_order SET state=2 WHERE id = #{id}
+        UPDATE ticket_order SET state=2,update_time=now() WHERE id = #{id}
     </update>
 </mapper>
