@@ -1,6 +1,12 @@
 package com.day_28.station.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.day_28.station.commons.map.MemcachedAccess;
+import com.day_28.station.commons.map.MemcachedDicMap;
+import com.day_28.station.dao.IResourceDao;
 import com.day_28.station.dao.IUserDao;
+import com.day_28.station.entity.Resource;
 import com.day_28.station.entity.User;
 import com.day_28.station.pageEntity.PageInfo;
 import com.day_28.station.queryEntity.UserQueryObj;
@@ -15,6 +21,8 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserDao userDao;
 
+    @Autowired
+    private IResourceDao resourceDao;
 
     @Override
     public void addUser(User user) {
@@ -62,6 +70,16 @@ public class UserServiceImpl implements IUserService {
             String password1 = user1.getPassword();
             if (password.equals(password1)) {
                 //用户密码相等，验证成功
+
+                //登录成功后，设置权限管理，把权限放入缓存 key value
+                String key1 = "Resource_" + user1.getId();
+                //通过id查询出权限
+
+                List<Resource> value = resourceDao.getResourceList(user1.getId());
+                String s = JSON.toJSONString(value);
+                List<Resource> resources = JSONArray.parseArray(s, Resource.class);
+                MemcachedDicMap.putResourceMap(key1, resources);
+
                 return true;
             }
         }

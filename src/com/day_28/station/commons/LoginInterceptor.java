@@ -6,12 +6,11 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.Enumeration;
 
 /**
  * 拦截器
  */
-public class LoginInterceptor extends HandlerInterceptorAdapter{
+public class LoginInterceptor extends HandlerInterceptorAdapter {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -23,7 +22,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
         User loginInSession = (User) session.getAttribute("LOGIN_IN_SESSION");
         if (loginInSession == null) {
 
-            if (token!=null && token1.equals(token)){
+            if (token != null && token1.equals(token)) {
                 System.out.println("外网登录");
                 System.out.println(host);
                 return true;
@@ -31,8 +30,9 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
             //跳转到登录页面
             System.out.println("没有登录");
             response.sendRedirect("/login/toLogin");
-        }else {
+        } else {
             System.out.println("已经登录");
+
         }
 
         return true;

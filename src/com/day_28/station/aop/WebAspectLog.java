@@ -10,25 +10,24 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Enumeration;
 
-public class webAspectLog {
-    private static final Logger logger = LoggerFactory.getLogger(webAspectLog.class);
+public class WebAspectLog {
+    private static final Logger logger = LoggerFactory.getLogger(WebAspectLog.class);
 
-    public void beforeLog(){
-        System.out.println("------beforeLog------");
+    public void beforeLog() {
         logger.info("------beforeLog------");
-        ServletRequestAttributes requestAttributes = (ServletRequestAttributes)RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
         //url地址
         String requestURI = request.getRequestURI();
-        logger.info("[requestURI=" + requestURI+"]");
+        logger.info("[requestURI=" + requestURI + "]");
         //URL
         StringBuffer requestURL = request.getRequestURL();
-        logger.info("[requestURL=" + requestURL+"]");
+        logger.info("[requestURL=" + requestURL + "]");
         //ip地址
         String remoteAddr = request.getRemoteAddr();
         logger.info("[remoteAddr = " + remoteAddr + "]");
         Enumeration<String> parameterNames = request.getParameterNames();
-        while(parameterNames.hasMoreElements()){
+        while (parameterNames.hasMoreElements()) {
             String key = parameterNames.nextElement();
             String value = request.getParameter(key);
             logger.info("[" + key + "=" + value + "]");
@@ -38,7 +37,7 @@ public class webAspectLog {
 
     }
 
-    public void afterLog(Object returnObject){
+    public void afterLog(Object returnObject) {
         System.out.println("------afterLog------");
         Date date = new Date();
         logger.info("[ date = " + date + "]");

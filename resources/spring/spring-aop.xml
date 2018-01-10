@@ -10,16 +10,28 @@
         http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <!--日志管理-->
-    <bean id="webAspectLog" class="com.day_28.station.aop.webAspectLog"/>
+    <bean id="webAspectLog" class="com.day_28.station.aop.WebAspectLog"/>
+
+    <bean id="ResourceAop" class="com.day_28.station.aop.ResourceAop"/>
 
     <aop:config>
         <aop:aspect ref="webAspectLog">
             <!--地点:方法-->
-            <aop:pointcut id="Pointcut" expression=" execution(* com.day_28.station.controller.portal.*Controller.*(..) )"/>
+            <aop:pointcut id="Pointcut1" expression=" execution(* com.day_28.station.controller.portal.*Controller.*(..) )"/>
 
-            <aop:before method="beforeLog" pointcut-ref="Pointcut"/>
+            <aop:before method="beforeLog" pointcut-ref="Pointcut1"/>
 
-            <aop:after-returning method="afterLog" pointcut-ref="Pointcut" returning="returnObject"/>
+            <aop:after-returning method="afterLog" pointcut-ref="Pointcut1" returning="returnObject"/>
+
+        </aop:aspect>
+    </aop:config>
+
+    <aop:config>
+        <aop:aspect ref="ResourceAop">
+            <!--地点:方法-->
+            <aop:pointcut id="Pointcut2" expression=" execution(* com.day_28.station.controller.portal.*Controller.*(..) )"/>
+
+            <aop:before method="beforeResource" pointcut-ref="Pointcut2"/>
 
         </aop:aspect>
     </aop:config>

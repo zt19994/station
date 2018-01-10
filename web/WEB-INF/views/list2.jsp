@@ -162,6 +162,7 @@
 
     function loadData(_currentPage) {
         /*把查询数据合成了*/
+        //alert("current");
         var startStation = $("#startStation").val();
         var stopStation = $("#stopStation").val();
         var minTime = $("#minTime").val();

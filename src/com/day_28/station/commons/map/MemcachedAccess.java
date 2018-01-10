@@ -25,6 +25,23 @@ public class MemcachedAccess {
         }
     }
 
+    public Object getResourceValue(String key){
+
+        try {
+            return client.get(key);
+        } catch (TimeoutException |InterruptedException|MemcachedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean addResourceValue(String key, Object value){
+        try {
+            return client.add(key, 1*60*24, value);
+        } catch (TimeoutException |InterruptedException|MemcachedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void setClient(MemcachedClient client) {
         this.client = client;
     }
@@ -32,4 +49,5 @@ public class MemcachedAccess {
     public MemcachedClient getClient() {
         return client;
     }
+
 }

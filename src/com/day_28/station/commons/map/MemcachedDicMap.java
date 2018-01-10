@@ -2,12 +2,11 @@ package com.day_28.station.commons.map;
 
 import com.day_28.station.dao.IDicMapDao;
 import com.day_28.station.entity.Dic;
+import com.day_28.station.entity.Resource;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 数据字典
@@ -66,5 +65,28 @@ public class MemcachedDicMap {
         }
 
     }
+
+
+    /**
+     * 把资源放入缓存
+     * @param key
+     * @param value
+     */
+    public static void putResourceMap(String key,Object value) {
+
+            memcachedAccess.addResourceValue(key, value);
+        }
+
+
+    /**
+     * 获取资源
+     * @param key
+     * @return
+     */
+    public static List<Resource> getResourceMap(String key) {
+        List<Resource> value =(List<Resource>) memcachedAccess.getResourceValue(key);
+        return value;
+    }
+
 }
 
