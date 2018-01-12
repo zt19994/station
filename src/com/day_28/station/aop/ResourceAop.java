@@ -26,14 +26,15 @@ public class ResourceAop {
         HttpSession session = request.getSession();
         User loginInSession = (User) session.getAttribute("LOGIN_IN_SESSION");
         if (loginInSession != null) {
-            System.out.println("已经登录");
+            logger.info("已经登录-ResourceAop");
             //登录之后检查权限
 
             //1.获取当前资源
             String requestURI = request.getRequestURI();
-            System.out.println("requestURI" + requestURI);
+            logger.info("requestURI" + requestURI);
             //2.获取用户所有资源
             String key2 = "Resource_" + loginInSession.getId();
+            logger.info("key2" + key2);
             List<Resource> resources = MemcachedDicMap.getResourceMap(key2);
             //3.比较是否有该资源
             boolean isResource = false;//给定默认的值为没有改权限
@@ -55,7 +56,5 @@ public class ResourceAop {
         } else {
             //用户登录
         }
-
     }
-
 }

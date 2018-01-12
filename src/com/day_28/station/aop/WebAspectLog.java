@@ -38,7 +38,6 @@ public class WebAspectLog {
     }
 
     public void afterLog(Object returnObject) {
-        System.out.println("------afterLog------");
         Date date = new Date();
         logger.info("[ date = " + date + "]");
         String s = JSON.toJSONString(returnObject);
