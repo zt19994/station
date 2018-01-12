@@ -34,8 +34,9 @@ public class ResourceAop {
             logger.info("requestURI" + requestURI);
             //2.获取用户所有资源
             String key2 = "Resource_" + loginInSession.getId();
-            logger.info("key2" + key2);
+            logger.info("key2：" + key2);
             List<Resource> resources = MemcachedDicMap.getResourceMap(key2);
+            logger.info("resources：" + resources);
             //3.比较是否有该资源
             boolean isResource = false;//给定默认的值为没有改权限
             for (int i = 0; i < resources.size(); i++) {

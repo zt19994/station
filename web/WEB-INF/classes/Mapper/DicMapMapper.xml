@@ -3,13 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.day_28.station.dao.IDicMapDao">
-    <select id="getList" resultType="com.day_28.station.entity.Dic">
-         SELECT d.id, d.table_name tableName, d.field_name fieldName, d.field_value fieldValue,
-       d.field_describe fieldDescribe, d.`describe` FROM dic AS d
+<mapper namespace="com.station.dao.IDicMapDao">
+    <select id="getList" resultType="com.station.entity.Dic">
+        SELECT d.id, d.table_name tableName, d.field_name fieldName, d.field_value fieldValue,
+        d.field_describe fieldDescribe, d.`describe`
+        FROM dic AS d
     </select>
 
-    <select id="getDic" resultType="com.day_28.station.entity.Dic">
+    <select id="getDic" resultType="com.station.entity.Dic">
         SELECT d.id, d.table_name tableName, d.field_name fieldName, d.field_value fieldValue,
         d.field_describe fieldDescribe, d.`describe` FROM dic AS d
         <where>

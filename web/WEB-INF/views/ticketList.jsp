@@ -174,7 +174,7 @@
             minTime:minTime,
             maxTime:maxTime
         };
-        var url = 'http://localhost:8080/ticket/query2';
+        var url = 'http://localhost:8080/ticket2/query2';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -250,7 +250,7 @@
         var params = {
             id: id
         };
-        var url = 'http://localhost:8080/ticket/buyTicket';
+        var url = 'http://localhost:8080/ticket2/buyTicket';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -266,7 +266,7 @@
                 var msg = data.msg;
                 if (code == "0000") {
                     //alert(msg);
-                    location.href = "http://localhost:8080/ticket/page";
+                    location.href = "http://localhost:8080/ticket2/page";
                     return false
                 } else {
                     //alert(msg);

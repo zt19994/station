@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("/ticket/")
+@RequestMapping("/ticket2/")
 public class TicketController {
     @Autowired
     private ITicketService ticketService;

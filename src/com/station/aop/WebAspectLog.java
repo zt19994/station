@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Enumeration;
 
+/**
+ * 日志设置
+ */
 public class WebAspectLog {
     private static final Logger logger = LoggerFactory.getLogger(WebAspectLog.class);
 

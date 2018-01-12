@@ -22,7 +22,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         User loginInSession = (User) session.getAttribute("LOGIN_IN_SESSION");
         if (loginInSession == null) {
 
-            if (token != null && token1.equals(token)) {
+            if (token1.equals(token)) {
                 System.out.println("外网登录");
                 System.out.println(host);
                 return true;

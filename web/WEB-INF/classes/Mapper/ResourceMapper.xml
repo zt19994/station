@@ -3,8 +3,8 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.day_28.station.dao.IResourceDao">
-    <select id="getResourceList" resultType="com.day_28.station.entity.Resource" parameterType="int">
+<mapper namespace="com.station.dao.IResourceDao">
+    <select id="getResourceList" resultType="com.station.entity.Resource" parameterType="int">
     SELECT u.id userId, rt.resource_detail resourceDetail FROM `user` u
     LEFT JOIN user_role ur ON (u.id =ur.user_id )
     LEFT JOIN role_resource rr ON (ur.role_id = rr.role_id)

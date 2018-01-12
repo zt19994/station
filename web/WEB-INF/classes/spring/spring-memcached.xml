@@ -27,7 +27,7 @@
         </property>
     </bean>
 
-    <bean id="memcachedAccess" class="com.day_28.station.commons.map.MemcachedAccess">
+    <bean id="memcachedAccess" class="com.station.commons.map.MemcachedAccess">
         <property name="client" ref="memcachedClient"/>
     </bean>
 
