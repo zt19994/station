@@ -14,10 +14,6 @@
 <body>
 <h1 align="center" id="title">更新用户页面</h1>
 <div align="center">
-    <%--private String userName;
-    private String password;
-    private Integer phone;
-    private Integer identityCard;--%>
     <table>
         <tr>
             <td>编号:</td>

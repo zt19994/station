@@ -24,7 +24,7 @@
     </body>
 <script type="text/javascript">
     function ticket2() {
-        location.href="http://localhost:8080/ticket2/page";
+        location.href="http://localhost:8080/ticket/page";
     }
 
     function buyTicketOtherStation() {

@@ -22,7 +22,7 @@
             <mvc:exclude-mapping path="/manage/login/*"/>
             <!--排除站间互售-->
             <mvc:exclude-mapping path="/otherStation/*"/>
-            <bean class="com.day_28.station.commons.LoginInterceptor"/>
+            <bean class="com.station.commons.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

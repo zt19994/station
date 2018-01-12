@@ -11,10 +11,6 @@
     <title>用户列表</title>
 
     <script type="text/javascript" src="/static/jquery-2.1.3.min.js"></script>
-<%--验证jquery是否加载成功
-    <script type="text/javascript">
-        alert($);
-    </script>--%>
 </head>
 <body>
 <div align="center">

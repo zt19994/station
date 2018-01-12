@@ -3,10 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.day_28.station.dao.IUserDao">
+<mapper namespace="com.station.dao.IUserDao">
     <insert id="addUser" parameterType="User">
         INSERT INTO user
-        (user_name, password, phone, identity_card, state) VALUES
+        (user_name, password, phone, identity_card, state)
+        VALUES
         (#{userName}, #{password}, #{phone}, #{identityCard}, #{state})
     </insert>
 
@@ -16,15 +17,18 @@
 
     <update id="updateUser" parameterType="User">
         UPDATE user SET user_name=#{userName}, password=#{password},
-        phone=#{phone}, identity_card=#{identityCard}, state=#{state} WHERE id=#{id}
+        phone=#{phone}, identity_card=#{identityCard}, state=#{state}
+        WHERE id=#{id}
     </update>
 
     <select id="queryAllUser" resultType="User">
-        SELECT id, user_name userName, password, phone, identity_card identityCard, state FROM user
+        SELECT id, user_name userName, password, phone, identity_card identityCard, state
+        FROM user
     </select>
 
-    <select id="queryByInfo" resultType="User" parameterType="com.day_28.station.queryEntity.UserQueryObj">
-        SELECT id, user_name userName, password, phone, identity_card identityCard, state FROM user
+    <select id="queryByInfo" resultType="User" parameterType="com.station.queryEntity.UserQueryObj">
+        SELECT id, user_name userName, password, phone, identity_card identityCard, state
+        FROM user
         <where>
             <if test="userName!=null and userName!=''">
                 AND user_name LIKE CONCAT('%',#{userName},'%' )
@@ -37,20 +41,25 @@
             </if>
         </where>
         <if test="startIndex!=null and pageSize!=null">
-            LIMIT  #{startIndex}, #{pageSize}
+            LIMIT #{startIndex}, #{pageSize}
         </if>
     </select>
 
     <select id="queryByName" resultType="User">
-        SELECT id, user_name userName, password, phone, identity_card identityCard, state FROM user WHERE user_name = #{userName}
+        SELECT id, user_name userName, password, phone, identity_card identityCard, state
+        FROM user WHERE
+        user_name = #{userName}
     </select>
 
     <select id="queryById" resultType="User">
-        SELECT id, user_name userName, password, phone, identity_card identityCard, state FROM user WHERE id = #{id}
+        SELECT id, user_name userName, password, phone, identity_card identityCard, state
+        FROM user WHERE
+        id = #{id}
     </select>
 
-    <select id="count" resultType="int" parameterType="com.day_28.station.queryEntity.UserQueryObj">
-        SELECT COUNT(1) FROM USER
+    <select id="count" resultType="int" parameterType="com.station.queryEntity.UserQueryObj">
+        SELECT COUNT(1)
+        FROM USER
         <where>
             <if test="userName!=null and userName!=''">
                 AND user_name LIKE CONCAT('%',#{userName},'%' )

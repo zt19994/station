@@ -3,33 +3,46 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.day_28.station.dao.ITicketOrderDao">
+<mapper namespace="com.station.dao.ITicketOrderDao">
     <insert id="addTicketOrder" parameterType="TicketOrder">
         INSERT INTO
-        ticket_order (ticket_id, user_id, num, state, order_num, create_time, update_time)
+            ticket_order (ticket_id, user_id, num, state, order_num, create_time, update_time)
         VALUES
-        (#{ticketId}, #{userId}, #{num}, #{state}, #{orderNum}, now(), now())
+            (#{ticketId}, #{userId}, #{num}, #{state}, #{orderNum}, now(), now())
     </insert>
 
     <select id="queryAll" resultType="TicketOrder">
-        select
-        id, ticket_id ticketId, user_id userId, num, state, order_num orderNum, create_time createTime
-        from
-        ticket_order;
+        SELECT
+            id,
+            ticket_id   ticketId,
+            user_id     userId,
+            num,
+            state,
+            order_num   orderNum,
+            create_time createTime
+        FROM
+            ticket_order;
     </select>
 
-    <select id="queryAllOrderPage" resultType="com.day_28.station.entity.OrderPage">
+    <select id="queryAllOrderPage" resultType="com.station.entity.OrderPage">
+        SELECT
+            o.id,
+            t.start_station startStation,
+            t.stop_station  stopStation,
+            u.user_name     userName,
+            o.num,
+            o.state,
+            o.order_num     orderNum,
+            o.create_time   createTime
+        FROM ticket_order AS o
+            LEFT JOIN ticket t ON (o.ticket_id = t.id)
+            LEFT JOIN `user` u ON (o.user_id = u.id)
+    </select>
+
+    <select id="queryByInfo" resultType="com.station.entity.OrderPage"
+            parameterType="com.station.queryEntity.OrderQueryObj">
         SELECT
         o.id, t.start_station startStation,t.stop_station stopStation, u.user_name userName, o.num,
-        o.state, o.order_num orderNum, o.create_time createTime
-        FROM ticket_order as o
-        LEFT JOIN ticket t ON (o.ticket_id=t.id)
-        LEFT JOIN `user` u ON (o.user_id = u.id)
-    </select>
-
-    <select id="queryByInfo" resultType="com.day_28.station.entity.OrderPage" parameterType="com.day_28.station.queryEntity.OrderQueryObj">
-        SELECT
-        o.id, t.start_station startStation,t.stop_station stopStation, u.user_name userName,  o.num,
         o.state, o.order_num orderNum, o.create_time createTime
         FROM ticket_order as o
         LEFT JOIN ticket t ON (o.ticket_id=t.id)
@@ -52,11 +65,11 @@
             </if>
         </where>
         <if test="startIndex!=null and pageSize!=null">
-            LIMIT  #{startIndex}, #{pageSize}
+            LIMIT #{startIndex}, #{pageSize}
         </if>
     </select>
 
-    <select id="count" resultType="int" parameterType="com.day_28.station.queryEntity.OrderQueryObj">
+    <select id="count" resultType="int" parameterType="com.station.queryEntity.OrderQueryObj">
         SELECT COUNT(1)
         FROM ticket_order as o
         LEFT JOIN ticket t ON (o.ticket_id=t.id)
@@ -80,14 +93,22 @@
         </where>
     </select>
 
-    <select id="queryOrderById" resultType="com.day_28.station.entity.TicketOrder" parameterType="int">
+    <select id="queryOrderById" resultType="com.station.entity.TicketOrder" parameterType="int">
         SELECT
-        id, ticket_id ticketId, user_id userId, num, state, order_num orderNum, create_time createTime
+            id,
+            ticket_id   ticketId,
+            user_id     userId,
+            num,
+            state,
+            order_num   orderNum,
+            create_time createTime
         FROM ticket_order
         WHERE id = #{id}
     </select>
 
     <update id="refundTicket" parameterType="int">
-        UPDATE ticket_order SET state=2,update_time=now() WHERE id = #{id}
+        UPDATE ticket_order
+        SET state = 2, update_time = now()
+        WHERE id = #{id}
     </update>
 </mapper>

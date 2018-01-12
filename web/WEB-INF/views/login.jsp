@@ -63,7 +63,7 @@
             success: function (data) {
                 //alert("成功啦");
                 if(data.code=="0000"){
-                    location.href="http://localhost:8080/ticket2/page";
+                    location.href="http://localhost:8080/ticket/page";
                 }else {
                     alert(data.msg);
                     location.href="http://localhost:8080/login/toLogin";
