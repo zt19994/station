@@ -7,45 +7,39 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
-    <head>
+<head>
     <title>导航页面</title>
-        <script type="text/javascript" src="/static/jquery-2.1.3.min.js"></script>
-    </head>
-    <body>
-    <h1 align="center">导航页面</h1>
-    <div align="center">
-        <button onclick="ticket2()">车票列表</button>
-        <button onclick="buyTicketOtherStation()">站间互售</button>
-        <button onclick="userList()">用户列表</button>
-        <br>
-        <button onclick="login()">登录</button>
-        <button onclick="register()">注册</button>
-    </div>
-    </body>
+    <script type="text/javascript" src="/static/jquery-2.1.3.min.js"></script>
+</head>
+<body>
+<h1 align="center">导航页面</h1>
+<div align="center">
+    <button onclick="ticket2()">车票列表</button>
+    <button onclick="userList()">用户管理系统</button>
+    <br>
+    <button onclick="login()">登录</button>
+    <button onclick="register()">注册</button>
+</div>
+</body>
 <script type="text/javascript">
     function ticket2() {
-        location.href="http://localhost:8080/ticket/page";
+        location.href = "http://localhost:8080/ticket/page";
     }
-
-    function buyTicketOtherStation() {
-        location.href="http://localhost:8080/otherStation/toOtherStationList";
-    }
-
 
     function userList() {
-        location.href="http://localhost:8080/manage/login/userList";
+        location.href = "http://localhost:8080/manage/login/userList";
     }
 
     //登录
     function login() {
         //alert("login");
-        location.href="http://localhost:8080/login/toLogin";
+        location.href = "http://localhost:8080/login/toLogin";
     }
 
     //注册
     function register() {
         //alert("logon");
-        location.href="http://localhost:8080/register/toRegister";
+        location.href = "http://localhost:8080/register/toRegister";
     }
 </script>
 </html>

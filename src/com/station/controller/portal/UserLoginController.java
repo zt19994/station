@@ -58,7 +58,8 @@ public class UserLoginController {
     public ModelAndView logout(HttpSession httpSession) {
         ModelAndView modelAndView = new ModelAndView();
         httpSession.removeAttribute("LOGIN_IN_SESSION");
-        modelAndView.setViewName("login");
+        //使用重定向来返回登录页面
+        modelAndView.setViewName("redirect:/login/toLogin");
         return modelAndView;
     }
 

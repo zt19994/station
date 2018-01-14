@@ -2,6 +2,7 @@ package com.station.controller.portal;
 
 import com.station.entity.OrderPage;
 import com.station.entity.Result;
+import com.station.entity.User;
 import com.station.pageEntity.PageInfo;
 import com.station.queryEntity.OrderQueryObj;
 import com.station.service.IOrderService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -42,8 +44,7 @@ public class TicketOrderController {
     @RequestMapping("data")
     @ResponseBody
     public List<OrderPage> getData() {
-        List<OrderPage> orderPages = orderService.queryAllOrder();
-        return orderPages;
+        return orderService.queryAllOrder();
     }
 
 
@@ -56,8 +57,7 @@ public class TicketOrderController {
     @RequestMapping("data2")
     @ResponseBody
     public List<OrderPage> getData2(OrderQueryObj orderQueryObj) {
-        List<OrderPage> orderPages = orderService.queryByInfo(orderQueryObj);
-        return orderPages;
+        return orderService.queryByInfo(orderQueryObj);
     }
 
     /**
@@ -68,9 +68,12 @@ public class TicketOrderController {
      */
     @RequestMapping("data3")
     @ResponseBody
-    public PageInfo<OrderPage> getPageInfo(OrderQueryObj orderQueryObj) {
-        PageInfo<OrderPage> pageInfo = orderService.getPageInfo(orderQueryObj);
-        return pageInfo;
+    public PageInfo<OrderPage> getPageInfo(OrderQueryObj orderQueryObj, HttpSession session) {
+        User user = (User) session.getAttribute("LOGIN_IN_SESSION");
+        String userName = user.getUserName();
+        orderQueryObj.setUserName(userName);
+        System.out.println(userName);
+        return orderService.getPageInfo(orderQueryObj);
     }
 
 

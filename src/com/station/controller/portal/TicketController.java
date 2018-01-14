@@ -46,8 +46,7 @@ public class TicketController {
     @RequestMapping("data")
     @ResponseBody
     public List<Ticket> data() {
-        List<Ticket> tickets = ticketService.queryAllTicket();
-        return tickets;
+        return ticketService.queryAllTicket();
     }
 
     /**
@@ -59,8 +58,7 @@ public class TicketController {
     @RequestMapping("query")
     @ResponseBody
     public List<Ticket> query(TicketQueryObj ticketQueryObj) {
-        List<Ticket> tickets = ticketService.queryByInfo(ticketQueryObj);
-        return tickets;
+        return ticketService.queryByInfo(ticketQueryObj);
     }
 
     /**

@@ -39,8 +39,8 @@ public class ResourceAop {
             logger.info("resources：" + resources);
             //3.比较是否有该资源
             boolean isResource = false;//给定默认的值为没有改权限
-            for (int i = 0; i < resources.size(); i++) {
-                String valueResource = resources.get(i).getResourceDetail();
+            for (Resource resource : resources) {
+                String valueResource = resource.getResourceDetail();
                 if (requestURI.equals(valueResource)) {
                     //拥有在资源的权限
                     isResource = true;

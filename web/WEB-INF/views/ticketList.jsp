@@ -28,6 +28,7 @@
     <button onclick="logout()">注销</button>
     <button onclick="login()">登录</button>
     <button onclick="register()">注册</button>
+    <button onclick="buyTicketOtherStation()">站间互售</button>
     <button onclick="ticketOrder()">查看订单列表</button>
     <span>售票员:${LOGIN_IN_SESSION.userName}</span>
 </div>
@@ -82,6 +83,11 @@
 </body>
 
 <script type="text/javascript">
+    //站间互售
+    function buyTicketOtherStation() {
+        location.href="http://localhost:8080/otherStation/toOtherStationList";
+    }
+
     //查看订单列表
     function ticketOrder() {
         //alert("ticketOrder");

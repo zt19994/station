@@ -15,12 +15,11 @@
 <body>
 <h1 align="center">车票订单列表</h1>
 <div align="center">
-
+    <span>管理员:${LOGIN_IN_SESSION.userName}</span>
     <table>
         <tr>
             <td>起 始 站:<input id="startStation" type="text" value=""> 到</td>
             <td>终 点 站:<input id="stopStation" type="text" value=""></td>
-            <td>用户名：<input id="userName" type="text" value=""></td>
         </tr>
         <tr>
             <td>
