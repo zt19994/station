@@ -30,7 +30,8 @@
     <button onclick="register()">注册</button>
     <button onclick="buyTicketOtherStation()">站间互售</button>
     <button onclick="ticketOrder()">查看订单列表</button>
-    <span>售票员:${LOGIN_IN_SESSION.userName}</span>
+    <button onclick="toUserList()">管理用户</button>
+    <span>用户:${LOGIN_IN_SESSION.userName}</span>
 </div>
 <br/>
 <div align="center">
@@ -83,6 +84,12 @@
 </body>
 
 <script type="text/javascript">
+    function toUserList() {
+        location.href="http://localhost:8080/manage/login/userList";
+    }
+
+
+
     //站间互售
     function buyTicketOtherStation() {
         location.href="http://localhost:8080/otherStation/toOtherStationList";

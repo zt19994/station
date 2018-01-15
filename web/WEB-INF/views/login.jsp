@@ -23,13 +23,13 @@
         <tr>
             <td>用户名:</td>
             <td>
-                <input id="userName" type="text" value="">
+                <input id="userName" type="text" placeholder="请输入用户名" value="">
             </td>
         </tr>
         <tr>
             <td>密&nbsp;码:</td>
             <td>
-                <input id="password" type="password" value="">
+                <input id="password" type="password" placeholder="请输入密码" value="">
             </td>
         </tr>
         <tr>
@@ -37,10 +37,21 @@
                 <button onclick="login()">登录</button>
             </td>
         </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <button onclick="toRegister()">还未注册，立即注册</button>
+            </td>
+        </tr>
     </table>
 </div>
 </body>
 <script type="text/javascript">
+    //跳转到注册
+    function toRegister() {
+        //alert("logon");
+        location.href = "http://localhost:8080/register/toRegister";
+    }
+
     function login() {
         //alert("login");
         //1.获取参数

@@ -18,37 +18,41 @@
         <tr>
             <td>用 户 名:</td>
             <td>
-                <input type="text" id="userName" value="">
+                <input type="text" id="userName" placeholder="请输入用户名" value="">
             </td>
         </tr>
         <tr>
-            <td>密  码 &nbsp;:</td>
+            <td>密 &nbsp; 码:</td>
             <td>
-                <input type="password" id="password" value="">
+                <input type="password" id="password" placeholder="请输入密码" value="">
             </td>
         </tr>
         <tr>
             <td>确认密码:</td>
             <td>
-                <input type="password" id="confirmPassword" value="">
+                <input type="password" id="confirmPassword" placeholder="确认密码" value="">
             </td>
         </tr>
         <tr>
             <td>电话号码:</td>
             <td>
-                <input type="text" id="phone" value="">
+                <input type="text" id="phone" placeholder="请输入电话号码" value="">
             </td>
         </tr>
         <tr>
             <td>身份证号:</td>
             <td>
-                <input type="text" id="identityCard" value="">
+                <input type="text" id="identityCard" placeholder="请输入身份证号" value="">
             </td>
         </tr>
         <tr>
             <td colspan="2" align="center">
                 <button onclick="register()">注册</button>
-                <button onclick="login()">登录</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <button onclick="login()">已经注册，立即登录</button>
             </td>
         </tr>
     </table>

@@ -83,6 +83,12 @@ public class TicketController {
     @ResponseBody
     public Result buyTicket(Integer id, String token, HttpSession httpSession) {
         Result<Object> result = new Result<>();
+        //1.判断车票id是否为空
+        if (id==null){
+            result.setCode("0001");
+            result.setMsg("参数错误");
+            return result;
+        }
 
         //在session中获取用户id
         User loginInSession = (User) httpSession.getAttribute("LOGIN_IN_SESSION");

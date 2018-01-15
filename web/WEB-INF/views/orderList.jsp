@@ -18,6 +18,11 @@
     <span>管理员:${LOGIN_IN_SESSION.userName}</span>
     <table>
         <tr>
+            <td colspan="3" align="center">
+                <button onclick="toTicketList()">返回购买车票页面</button>
+            </td>
+        </tr>
+        <tr>
             <td>起 始 站:<input id="startStation" type="text" value=""> 到</td>
             <td>终 点 站:<input id="stopStation" type="text" value=""></td>
         </tr>
@@ -62,6 +67,10 @@
 </div>
 </body>
 <script type="text/javascript">
+    function toTicketList() {
+        location.href="http://localhost:8080/ticket2/page";
+    }
+
     //首页
     function firstPage() {
         loadData(1);
@@ -114,6 +123,7 @@
             loadData(currentPage);
         }
     }
+
 
     function loadData(currentPage) {
         //alert("loadData");

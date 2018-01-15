@@ -14,17 +14,14 @@
 <body>
 <h1 align="center">导航页面</h1>
 <div align="center">
-    <button onclick="ticket2()">车票列表</button>
     <button onclick="userList()">用户管理系统</button>
+    <br>
     <br>
     <button onclick="login()">登录</button>
     <button onclick="register()">注册</button>
 </div>
 </body>
 <script type="text/javascript">
-    function ticket2() {
-        location.href = "http://localhost:8080/ticket/page";
-    }
 
     function userList() {
         location.href = "http://localhost:8080/manage/login/userList";

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -27,8 +28,16 @@ public class ManageUserController {
      * @return
      */
     @RequestMapping("userList")
-    public ModelAndView userList(){
+    public ModelAndView userList(HttpSession session){
+        //1.校验用户是否登录
+        User user = (User)session.getAttribute("LOGIN_IN_SESSION");
         ModelAndView modelAndView = new ModelAndView();
+        if (user==null){
+            //未登录，跳转到登录页面
+            //使用重定向来返回登录页面
+            modelAndView.setViewName("redirect:/login/toLogin");
+            return modelAndView;
+        }
         modelAndView.setViewName("userList");
         return modelAndView;
     }

@@ -8,16 +8,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html>
 <head>
-    <title>用户列表</title>
+    <title>管理用户</title>
 
     <script type="text/javascript" src="/static/jquery-2.1.3.min.js"></script>
 </head>
 <body>
 <div align="center">
-    <h1>用户列表</h1>
+    <h1>管理用户</h1>
 </div>
 <div align="center">
-    <button onclick="updateUser()">新增</button>
+    <button onclick="updateUser()">新增用户</button>
 </div>
 <br/>
 <div align="center">
