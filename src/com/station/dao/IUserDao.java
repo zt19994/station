@@ -11,21 +11,21 @@ public interface IUserDao {
      *
      * @param user
      */
-    void addUser(User user);
+    int addUser(User user);
 
     /**
      * 删除用户
      *
      * @param id
      */
-    void deleteUser(Integer id);
+    int deleteUser(Integer id);
 
     /**
      * 更新用户信息
      *
      * @param user
      */
-    void updateUser(User user);
+    int updateUser(User user);
 
     /**
      * 查询所有用户

@@ -5,13 +5,40 @@
          version="3.1">
 
 
+    <!--添加cxf配置文件-->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:spring-config.xml
+        </param-value>
+    </context-param>
+
+    <!--添加监听器-->
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <!--cxf配置-->
+    <servlet>
+        <servlet-name>cxfServlet</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+    </servlet>
+
+    <!-- 访问路由配置-->
+    <servlet-mapping>
+        <servlet-name>cxfServlet</servlet-name>
+        <url-pattern>/ws/*</url-pattern>
+    </servlet-mapping>
+
+
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <!--扫描spring配置文件-->
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:spring-config.xml</param-value>
+            <param-value>classpath:spring-MVC.xml</param-value>
         </init-param>
         <!--优先级-->
         <load-on-startup>1</load-on-startup>

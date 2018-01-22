@@ -68,15 +68,13 @@
 </body>
 <script type="text/javascript">
     function toTicketList() {
-        location.href="http://localhost:8080/ticket2/page";
+        location.href="/ticket2/page";
     }
 
-    //首页
     function firstPage() {
         loadData(1);
     }
 
-    //上一页
     function prePage() {
         //alert("prePage");
         var currentPage = $("#currentPage").html();
@@ -85,13 +83,10 @@
             _currentPage = 1;
             return _currentPage;
         }
-        //alert(_currentPage);
         loadData(_currentPage)
     }
 
-    //下一页
     function nextPage() {
-        //alert("nextPage");
         var totalPage = $("#totalPage").html();
         var currentPage = $("#currentPage").html();
         if (currentPage >= totalPage) {
@@ -99,17 +94,15 @@
             return currentPage;
         }
         var _currentPage = parseInt(currentPage) + 1;
-        //alert(_currentPage);
         loadData(_currentPage);
     }
 
-    //末页
+
     function lastPage() {
         var currentPage = $("#totalPage").html();
         loadData(currentPage)
     }
 
-    //跳转页
     function jumpPage() {
         var totalPage = $("#totalPage").html();
         var currentPage = $("#jumpPage").val();
@@ -126,7 +119,6 @@
 
 
     function loadData(currentPage) {
-        //alert("loadData");
         //获取查询参数
         var startStation = $("#startStation").val();
         var stopStation = $("#stopStation").val();
@@ -142,7 +134,7 @@
             minTime:minTime,
             maxTime:maxTime
         };
-        var url = 'http://localhost:8080/order/data3';
+        var url = '/order/data3';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -151,7 +143,6 @@
             dataType: 'json',
 
             success: function (data) {
-                //alert("成功了");
                 //获取数据
                 var orderList = data.list;
                 var currentPage = data.currentPage;
@@ -221,7 +212,7 @@
         var params = {
             id: id
         };
-        var url = 'http://localhost:8080/order/refundTicket';
+        var url = '/order/refundTicket';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -234,7 +225,7 @@
                 var msg = data.msg;
                 if (code == "0000") {
                     alert(msg);
-                    location.href = "http://localhost:8080/order/order";
+                    location.href = "/order/order";
                     return false
                 } else {
                     alert(msg);

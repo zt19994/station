@@ -9,8 +9,7 @@
 <html>
 <head>
     <title>站间互售车票列表</title>
-    <script type="text/javascript" src="/static/jquery-2.1.3.min.js">
-    </script>
+    <script type="text/javascript" src="/static/jquery-2.1.3.min.js"></script>
     <script type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
 </head>
 <body>
@@ -63,29 +62,22 @@
 </div>
 </body>
 <script type="text/javascript">
-    //首页
     function firstPage() {
-        //alert("firstPage");
         var currentPage = 1;
         loadData(3,currentPage);
     }
 
-    //上一页
     function prePage() {
-        //alert("prePage");
         var currentPage = $("#currentPage").html();
         var _currentPage = currentPage - 1;
         if (currentPage <= 1) {
             _currentPage = 1;
             return _currentPage;
         }
-        //alert(_currentPage);
         loadData(3,_currentPage);
     }
 
-    //下一页
     function nextPage() {
-        //alert("nextPage");
         var totalPage = $("#totalPage").html();
         var currentPage = $("#currentPage").html();
         if (currentPage>=totalPage){
@@ -93,15 +85,14 @@
             return currentPage;
         }
         var _currentPage = parseInt(currentPage) + 1;
-        //alert(_currentPage);
         loadData(3,_currentPage)
     }
-    //末页
+
     function lastPage() {
         var currentPage = $("#totalPage").html();
         loadData(3,currentPage);
     }
-    //跳转页
+
     function jumpPage() {
         var totalPage = $("#totalPage").html();
         var currentPage = $("#jumpPage").val();
@@ -116,12 +107,11 @@
         }
     }
     function loadData(pageSize, currentPage) {
-        //alert("loadDATA");
         var params = {
             pageSize:pageSize,
             currentPage:currentPage
         };
-        var url = 'http://localhost:8080/otherStation/loadData';
+        var url = '/otherStation/loadData';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -190,12 +180,10 @@
     }
 
     function buyTicket(id) {
-        //alert("buyTicket");
-
         var params = {
             id: id
         };
-        var url = 'http://localhost:8080/otherStation/buyOtherTicket';
+        var url = '/otherStation/buyOtherTicket';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -211,7 +199,7 @@
                 var msg = data.msg;
                 if (code == "0000") {
                     //alert(msg);
-                    location.href = "http://localhost:8080/otherStation/toOtherStationList";
+                    window.location.href = "/otherStation/toOtherStationList";
                     return false
                 } else {
                     //alert(msg);

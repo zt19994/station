@@ -111,4 +111,15 @@
         SET state = 2, update_time = now()
         WHERE id = #{id}
     </update>
+
+    <select id="selectByOrderNum" resultType="TicketOrder" parameterType="string">
+        SELECT
+        id, ticket_id ticketId, user_id userId, num, state, order_num orderNum
+        FROM ticket_order
+        WHERE order_num = #{orderNum}
+    </select>
+
+    <update id="updateOrder" parameterType="TicketOrder">
+        UPDATE ticket_order SET state=#{state}, update_time= now() WHERE id = #{id}
+    </update>
 </mapper>

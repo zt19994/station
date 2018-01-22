@@ -85,20 +85,17 @@
 
 <script type="text/javascript">
     function toUserList() {
-        location.href="http://localhost:8080/manage/login/userList";
+        window.location.href="/manage/login/userList";
     }
-
-
 
     //站间互售
     function buyTicketOtherStation() {
-        location.href="http://localhost:8080/otherStation/toOtherStationList";
+        window.location.href="http://localhost:8080/otherStation/toOtherStationList";
     }
 
     //查看订单列表
     function ticketOrder() {
-        //alert("ticketOrder");
-        location.href = "http://localhost:8080/order/order";
+        window.location.href = "http://localhost:8080/order/order";
     }
 
     //注销
@@ -106,42 +103,35 @@
         location.href = "http://localhost:8080/login/logout";
     }
 
-
     //登录
     function login() {
-        //alert("login");
         location.href = "http://localhost:8080/login/toLogin";
     }
 
     //注册
     function register() {
-        //alert("logon");
         location.href = "http://localhost:8080/register/toRegister";
     }
 
     //首页
     function firstPage() {
-        //alert("firstPage");
         var currentPage = 1;
         loadData(currentPage);
     }
 
     //上一页
     function prePage() {
-        //alert("prePage");
         var currentPage = $("#currentPage").html();
         var _currentPage = currentPage - 1;
         if (currentPage <= 1) {
             _currentPage = 1;
             return _currentPage;
         }
-        //alert(_currentPage);
         loadData(_currentPage);
     }
 
     //下一页
     function nextPage() {
-        //alert("nextPage");
         var totalPage = $("#totalPage").html();
         var currentPage = $("#currentPage").html();
         if (currentPage>=totalPage){
@@ -149,7 +139,6 @@
             return currentPage;
         }
         var _currentPage = parseInt(currentPage) + 1;
-        //alert(_currentPage);
         loadData(_currentPage)
     }
     //末页
@@ -175,7 +164,6 @@
 
     function loadData(_currentPage) {
         /*把查询数据合成了*/
-        //alert("current");
         var startStation = $("#startStation").val();
         var stopStation = $("#stopStation").val();
         var minTime = $("#minTime").val();
@@ -258,8 +246,6 @@
     }
 
     function buyTicket(id) {
-        //alert("buyTicket");
-
         var params = {
             id: id
         };
@@ -272,7 +258,6 @@
             dataType: 'json',
 
             success: function (data) {
-                //alert("成功了");
                 //购票成功后，返回车票列表页面
                 //获取数据
                 var code = data.code;

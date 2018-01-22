@@ -12,7 +12,7 @@ public interface IUserService {
      *
      * @param user
      */
-    void addUser(User user);
+    boolean addUser(User user);
 
     /**
      * 删除用户

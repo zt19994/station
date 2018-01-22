@@ -60,13 +60,11 @@
 <script type="text/javascript">
     //首页
     function firstPage() {
-        //alert("firstPage");
         loadData(1);
     }
 
     //上一页
     function prePage() {
-        //alert("prePage");
         var currentPage = $("#currentPage").html();
         var prePage = currentPage - 1;
         if (currentPage<=1){
@@ -78,7 +76,6 @@
 
     //下一页
     function nextPage() {
-        //alert("nextPage");
         var currentPage = $("#currentPage").html();
         var totalPage = $("#totalPage").html();
         if (currentPage>=totalPage){
@@ -99,7 +96,6 @@
     function jumpPage() {
         var totalPage = $("#totalPage").html();
         var currentPage = $("#jumpPage").val();
-        //alert(currentPage);
         if (currentPage<=1){
             currentPage = 1;
             loadData(currentPage);
@@ -111,13 +107,8 @@
         }
 
     }
-   /* function addUser() {
-        //alert("addUser");
-        location.href='http://localhost:8080/register/toRegister';
-    }*/
 
     function loadData(_currentPage){
-        /*alert("loadData");*/
         //获取查询参数
         var userName = $("#userName").val();
         var identityCard = $("#identityCard").val();
@@ -137,8 +128,6 @@
             dataType: 'json',
 
             success: function (data) {
-                /*alert("成功啦");*/
-
                 /*   /!*测试对象数量*!/
                    var num = data.length;
                    alert(num);*/
@@ -200,7 +189,7 @@
         var params = {
             id:userId
         };
-        var url = 'http://localhost:8080/manage/login/deleteUser';
+        var url = '/manage/login/deleteUser';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -211,7 +200,7 @@
             success: function (data) {
                /* alert("成功啦");*/
                 //跳转到列表页面，即刷新页面
-                location.href='http://localhost:8080/manage/login/userList';
+                window.location.href='/manage/login/userList';
 
             },
             error: function (data) {
@@ -223,10 +212,10 @@
     /*修改和合并一起*/
     function updateUser(userId) {
         if (userId==null){
-            location.href='http://localhost:8080//manage/login/toUpdateUser';
+            window.location.href='/manage/login/toUpdateUser';
         }else {
             //alert("updateUser, userId=" + userId);
-            location.href='http://localhost:8080/manage/login/toUpdateUser?id=' + userId;
+            window.location.href='/manage/login/toUpdateUser?id=' + userId;
         }
     }
 

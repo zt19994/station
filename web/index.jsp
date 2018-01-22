@@ -22,21 +22,20 @@
 </div>
 </body>
 <script type="text/javascript">
-
     function userList() {
-        location.href = "http://localhost:8080/manage/login/userList";
+        window.location.href = "/manage/login/userList";
     }
 
     //登录
     function login() {
         //alert("login");
-        location.href = "http://localhost:8080/login/toLogin";
+        window.location.href = "/login/toLogin";
     }
 
     //注册
     function register() {
         //alert("logon");
-        location.href = "http://localhost:8080/register/toRegister";
+        widnow.location.href = "/register/toRegister";
     }
 </script>
 </html>

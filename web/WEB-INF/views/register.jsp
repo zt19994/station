@@ -59,14 +59,11 @@
 </div>
 </body>
 <script type="text/javascript">
-    //登录
     function login() {
-        //alert("login");
-        location.href="http://localhost:8080/login/toLogin";
+        location.href="/login/toLogin";
     }
 
     function register() {
-        //alert("logon");
         //1.获取参数
         var userName = $("#userName").val();
         var password = $("#password").val();
@@ -84,7 +81,7 @@
             phone:phone,
             identityCard:identityCard
         };
-        var url = 'http://localhost:8080/register/checkRegister';
+        var url = '/register/checkRegister';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -92,16 +89,15 @@
             data: params,
             dataType: 'json',
             success: function (data) {
-                //alert("成功啦");
 
                 if (data.code=='0000'){
                     alert(data.msg);
                     //注册成功，跳转到登录页面
-                    location.href='http://localhost:8080/login/toLogin';
+                    window.location.href='/login/toLogin';
                 }else {
                     alert(data.msg);
                     //注册失败，请重新注册
-                    location.href='http://localhost:8080/register/toRegister';
+                    window.location.href='/register/toRegister';
                 }
             },
             error: function (data) {

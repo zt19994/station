@@ -58,4 +58,18 @@ public interface ITicketOrderDao {
      * @param id
      */
     void refundTicket(Integer id);
+
+    /**
+     *通过orderNum查询订单信息
+     * @param orderNum
+     * @return
+     */
+    TicketOrder selectByOrderNum(String orderNum);
+
+    /**
+     * 更新订单状态
+     * @param ticketOrder
+     * @return
+     */
+    int updateOrder(TicketOrder ticketOrder);
 }

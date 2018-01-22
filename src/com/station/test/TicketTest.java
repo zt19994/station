@@ -26,12 +26,13 @@ public class TicketTest {
         Ticket ticket = new Ticket();
         ticket.setStartStation("成都");
         ticket.setStopStation("北京");
-        ticket.setDepartureTime("2018-1-8 10:00:00");
+        ticket.setDepartureTime("2018-1-16 10:00:00");
         ticket.setPrice(258.0);
         ticket.setTicketNum(40);
         ticket.setRouteId(3);
         ticket.setType("1");
-        iTicketDao.addTicket(ticket);
+        int i = iTicketDao.addTicket(ticket);
+        System.out.println(i);
     }
 
     /**

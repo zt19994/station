@@ -23,7 +23,7 @@
 <script type="text/javascript">
     //登录
     function login() {
-        location.href="http://localhost:8080/login/toLogin";
+        window.location.href="/login/toLogin";
     }
 </script>
 </html>

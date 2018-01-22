@@ -48,12 +48,10 @@
 <script type="text/javascript">
     //跳转到注册
     function toRegister() {
-        //alert("logon");
-        location.href = "http://localhost:8080/register/toRegister";
+        window.location.href = "/register/toRegister";
     }
 
     function login() {
-        //alert("login");
         //1.获取参数
         var userName = $("#userName").val();
         var password = $("#password").val();
@@ -64,7 +62,7 @@
             password:password,
             loginToken:loginToken
         };
-        var url = 'http://localhost:8080/login/checkLogin';
+        var url = '/login/checkLogin';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -74,10 +72,10 @@
             success: function (data) {
                 //alert("成功啦");
                 if(data.code=="0000"){
-                    location.href="http://localhost:8080/ticket2/page";
+                    window.location.href="/ticket2/page";
                 }else {
                     alert(data.msg);
-                    location.href="http://localhost:8080/login/toLogin";
+                    window.location.href="/login/toLogin";
                 }
             },
             error: function (data) {

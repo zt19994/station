@@ -24,9 +24,10 @@ public class UserServiceImpl implements IUserService {
     private IResourceDao resourceDao;
 
     @Override
-    public void addUser(User user) {
+    public boolean addUser(User user) {
         user.setState(0);
-        userDao.addUser(user);
+        int resultCount = userDao.addUser(user);
+        return resultCount > 0;
     }
 
     @Override
@@ -41,20 +42,17 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public User queryById(int id) {
-        User user = userDao.queryById(id);
-        return user;
+        return userDao.queryById(id);
     }
 
     @Override
     public User queryByName(User user) {
-        User user1 = userDao.queryByName(user);
-        return user1;
+        return userDao.queryByName(user);
     }
 
     @Override
     public List<User> queryAllUser() {
-        List<User> users = userDao.queryAllUser();
-        return users;
+        return userDao.queryAllUser();
     }
 
 
@@ -101,8 +99,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public List<User> queryByInfo(UserQueryObj userQueryObj) {
-        List<User> users = userDao.queryByInfo(userQueryObj);
-        return users;
+        return userDao.queryByInfo(userQueryObj);
     }
 
     @Override

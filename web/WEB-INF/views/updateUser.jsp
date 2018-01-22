@@ -63,7 +63,6 @@
 </body>
 <script type="text/javascript">
     function updateData() {
-        //alert("updateData");
         //取出数据
         var id = $("#id").val();
         var userName = $("#userName").val();
@@ -80,7 +79,7 @@
             state:state
 
         };
-        var url = 'http://localhost:8080/manage/login/updateData';
+        var url = '/manage/login/updateData';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
@@ -88,9 +87,8 @@
             data: params,
             dataType: 'json',
             success: function (data) {
-                //alert("成功啦");
                 //跳转到用户列表页面
-                location.href='http://localhost:8080/manage/login/userList';
+                window.location.href='/manage/login/userList';
             },
             error: function (data) {
                 alert("失败啦");
@@ -101,7 +99,6 @@
     /*页面加载后回显数据*/
 
     function loadUpdateUserData() {
-        //alert("loadUpdateUserData");
         //获取id
         var id = $("#id").val();
         //alert(id);
@@ -114,7 +111,7 @@
         var params = {
             id:id
         };
-        var url = 'http://localhost:8080/manage/login/getUserDataById';
+        var url = '/manage/login/getUserDataById';
         jQuery.ajax({
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',

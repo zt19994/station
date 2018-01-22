@@ -11,21 +11,21 @@ public interface ITicketDao {
      *
      * @param ticket
      */
-    void addTicket(Ticket ticket);
+    int addTicket(Ticket ticket);
 
     /**
      * 删除车票
      *
      * @param id
      */
-    void deleteTicket(int id);
+    int deleteTicket(int id);
 
     /**
      * 更新车票
      *
      * @param ticket
      */
-    void updateTicket(Ticket ticket);
+    int updateTicket(Ticket ticket);
 
     /**
      * 查询所有车票列表
