@@ -31,7 +31,7 @@
         <url-pattern>/ws/*</url-pattern>
     </servlet-mapping>
 
-
+    <!--前端分发器-->
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -48,6 +48,7 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <!--把js排除在dispatcherServlet外-->
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.js</url-pattern>
@@ -56,6 +57,24 @@
         <url-pattern>*.png</url-pattern>
         <url-pattern>*.jpg</url-pattern>
     </servlet-mapping>
+    
+    <!--404错误页面配置-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error_pages/404.jsp</location>
+    </error-page>
+    
+    <!--500错误页面配置-->
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error_pages/500.jsp</location>
+    </error-page>
+
+    <!--error错误页面配置-->
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/error_pages/error.jsp</location>
+    </error-page>
 
     <!--中文编码设置-->
     <filter>
